@@ -7,7 +7,6 @@ import 'package:octo_image/octo_image.dart';
 
 import '../shape/shape.dart';
 
-
 class XXImage extends StatelessWidget {
   final ImageStyle? imageStyle;
   final BoxShape? boxShape;
