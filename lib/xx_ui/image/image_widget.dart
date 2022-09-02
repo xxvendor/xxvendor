@@ -9,8 +9,7 @@ import '../shape/shape.dart';
 
 class XXImage extends StatelessWidget {
   final ImageStyle? imageStyle;
-  final BoxShape? boxShape;
-  final BorderRadius? borderRadius;
+
   final String imagePath;
   final BoxFit? fit;
   final Color? color;
@@ -25,8 +24,7 @@ class XXImage extends StatelessWidget {
 
   const XXImage(
       {Key? key,
-      this.boxShape,
-      this.borderRadius,
+
       this.imageStyle = ImageStyle.assets,
       required this.imagePath,
       this.fit = BoxFit.contain,
@@ -108,11 +106,7 @@ class XXImage extends StatelessWidget {
   }
 
   Widget imageWidget(Widget imageWidget) {
-    return XXShape(
-      borderRadius: borderRadius,
-      boxShape: boxShape,
-      child: imageWidget,
-    );
+    return imageWidget;
   }
 }
 
