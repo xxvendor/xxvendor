@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   octo_image: ^1.0.2
   cached_network_image: ^3.2.1
+  flutter_svg: ^1.1.4
+
 
 dev_dependencies:
   flutter_test:

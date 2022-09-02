@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:octo_image/octo_image.dart';
 
 import '../shape/shape.dart';
-import 'image_style.dart';
 
-export 'image_style.dart';
 
 class XXImage extends StatelessWidget {
   final ImageStyle? imageStyle;
@@ -23,6 +22,7 @@ class XXImage extends StatelessWidget {
   final int? maxHeight;
   final Widget? placeholderBuilder;
   final Widget? errorBuilder;
+  final bool? enableSvg;
 
   const XXImage(
       {Key? key,
@@ -38,7 +38,8 @@ class XXImage extends StatelessWidget {
       this.size,
       this.placeholderBuilder,
       this.errorBuilder,
-      this.color})
+      this.color,
+      this.enableSvg = false})
       : super(key: key);
 
   @override
@@ -61,42 +62,59 @@ class XXImage extends StatelessWidget {
     return widget;
   }
 
-  ImageProvider networkImageWidget() {
-    return CachedNetworkImageProvider(imagePath,
-        maxHeight: maxHeight, maxWidth: maxWidth);
+  Widget networkImageWidget() {
+    return octoImageWidget(CachedNetworkImageProvider(imagePath,
+        maxHeight: maxHeight, maxWidth: maxWidth));
   }
 
-  ImageProvider fileImageWidget() {
-    return FileImage(
+  Widget fileImageWidget() {
+    return octoImageWidget(FileImage(
       File(
         imagePath,
       ),
+    ));
+  }
+
+  Widget assetsImageWidget() {
+    return enableSvg!
+        ? SvgPicture.asset(
+            imagePath,
+            color: color,
+            width: width,
+            height: height,
+            fit: fit ?? BoxFit.contain,
+            placeholderBuilder: (context) {
+              return placeholderBuilder ?? const SizedBox();
+            },
+          )
+        : octoImageWidget(AssetImage(imagePath));
+  }
+
+  Widget octoImageWidget(ImageProvider imageProvider) {
+    return OctoImage(
+      width: (size == 0 || size == null) ? width : size,
+      height: (size == 0 || size == null) ? height : size,
+      color: color,
+      image: imageProvider,
+      //progressIndicatorBuilder与placeholderBuilder，2选1
+      placeholderBuilder: (context) {
+        return placeholderBuilder ?? const SizedBox();
+      },
+      errorBuilder:
+          (BuildContext context, Object error, StackTrace? stackTrace) {
+        return errorBuilder ?? Container();
+      },
+      fit: fit,
     );
   }
 
-  ImageProvider assetsImageWidget() {
-    return AssetImage(imagePath);
-  }
-
-  Widget imageWidget(ImageProvider imageProvider) {
+  Widget imageWidget(Widget imageWidget) {
     return XXShape(
       borderRadius: borderRadius,
       boxShape: boxShape,
-      child: OctoImage(
-        width: (size == 0 || size == null) ? width : size,
-        height: (size == 0 || size == null) ? height : size,
-        color: color,
-        image: imageProvider,
-        //progressIndicatorBuilder与placeholderBuilder，2选1
-        placeholderBuilder: (context) {
-          return placeholderBuilder ?? const SizedBox();
-        },
-        errorBuilder:
-            (BuildContext context, Object error, StackTrace? stackTrace) {
-          return errorBuilder ?? Container();
-        },
-        fit: fit,
-      ),
+      child: imageWidget,
     );
   }
 }
+
+enum ImageStyle { network, file, assets }
