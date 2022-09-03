@@ -45,7 +45,7 @@ class XXTextField extends StatelessWidget {
   final bool isCollapsed;
   final InputBorder? border;
   final TextInputType? keyboardType;
-
+  final GestureTapCallback? onTap;
   const XXTextField(
       {Key? key,
       required this.controller,
@@ -89,12 +89,13 @@ class XXTextField extends StatelessWidget {
       this.suffixIconConstraints,
       this.suffixStyle,
       this.suffixIconColor,
-      this.keyboardType})
+      this.keyboardType, this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: onTap,
       keyboardType: keyboardType,
       focusNode: focusNode,
       controller: controller,
