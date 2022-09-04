@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 ///必须在首页进行初始化
