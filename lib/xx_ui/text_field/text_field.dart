@@ -44,8 +44,10 @@ class XXTextField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final bool isCollapsed;
   final InputBorder? border;
+  final InputBorder? focusedBorder;
   final TextInputType? keyboardType;
   final GestureTapCallback? onTap;
+
   const XXTextField(
       {Key? key,
       required this.controller,
@@ -89,7 +91,9 @@ class XXTextField extends StatelessWidget {
       this.suffixIconConstraints,
       this.suffixStyle,
       this.suffixIconColor,
-      this.keyboardType, this.onTap})
+      this.keyboardType,
+      this.onTap,
+      this.focusedBorder})
       : super(key: key);
 
   @override
@@ -137,7 +141,7 @@ class XXTextField extends StatelessWidget {
         suffixStyle: suffixStyle,
         fillColor: filledColor,
         filled: filled,
-        focusedBorder: InputBorder.none,
+        focusedBorder: focusedBorder,
         border: border,
         enabledBorder: InputBorder.none,
         errorBorder: InputBorder.none,
