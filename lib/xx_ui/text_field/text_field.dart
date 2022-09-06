@@ -45,6 +45,10 @@ class XXTextField extends StatelessWidget {
   final bool isCollapsed;
   final InputBorder? border;
   final InputBorder? focusedBorder;
+  final InputBorder? enableBorder;
+  final InputBorder? errorBorder;
+  final InputBorder? disabledBorder;
+
   final TextInputType? keyboardType;
   final GestureTapCallback? onTap;
 
@@ -93,7 +97,10 @@ class XXTextField extends StatelessWidget {
       this.suffixIconColor,
       this.keyboardType,
       this.onTap,
-      this.focusedBorder})
+      this.focusedBorder,
+      this.enableBorder,
+      this.errorBorder,
+      this.disabledBorder})
       : super(key: key);
 
   @override
@@ -141,10 +148,11 @@ class XXTextField extends StatelessWidget {
         suffixStyle: suffixStyle,
         fillColor: filledColor,
         filled: filled,
-        focusedBorder: focusedBorder,
-        border: border,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
+        focusedBorder: focusedBorder ?? InputBorder.none,
+        border: border ?? InputBorder.none,
+        enabledBorder: enableBorder ?? InputBorder.none,
+        errorBorder: errorBorder ?? InputBorder.none,
+        disabledBorder: disabledBorder??InputBorder.none,
       ),
     );
   }
