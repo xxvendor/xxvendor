@@ -5,3 +5,4 @@ export 'inkwell/inkwell.dart';
 export 'shape/shape.dart';
 export 'tab_bar/tab_bar.dart';
 export 'text_field/text_field.dart';
+export 'switch/switch.dart';
