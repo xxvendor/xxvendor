@@ -8,9 +8,9 @@ import '../xx_ui.dart';
 
 typedef OnTap = Function(int index);
 
-class ComeinBottomNavigatorBar extends StatelessWidget {
+class XXBottomNavigatorBar extends StatelessWidget {
   final Color? backgroundColor;
-  final List<ComeinBottomBarItem> items;
+  final List<XXBottomBarItem> items;
   final Color? selectedColor;
   final Color? unSelectedColor;
   final double unselectedFontSize;
@@ -26,7 +26,7 @@ class ComeinBottomNavigatorBar extends StatelessWidget {
   final InkShape? buttonShape;
   final BorderRadiusGeometry? borderRadius;
 
-  const ComeinBottomNavigatorBar({
+  const XXBottomNavigatorBar({
     Key? key,
     this.backgroundColor,
     this.selectedColor,
@@ -62,7 +62,7 @@ class ComeinBottomNavigatorBar extends StatelessWidget {
           children: [
             for (int i = 0; i < items.length; i++) ...[
               Expanded(
-                child: ComeinBottomNavbarItems(
+                child: XXBottomNavbarItems(
                   selectedColor: selectedColor,
                   unSelectedColor: unSelectedColor,
                   item: items[i],
@@ -85,13 +85,13 @@ class ComeinBottomNavigatorBar extends StatelessWidget {
   }
 }
 
-class ComeinBottomBarItem {
+class XXBottomBarItem {
   final String icon;
   final String label;
   final ImageStyle imageStyle;
   final int bubbleNum;
 
-  ComeinBottomBarItem({
+  XXBottomBarItem({
     required this.icon,
     required this.imageStyle,
     required this.label,
@@ -99,8 +99,8 @@ class ComeinBottomBarItem {
   });
 }
 
-class ComeinBottomNavbarItems extends StatelessWidget {
-  final ComeinBottomBarItem item;
+class XXBottomNavbarItems extends StatelessWidget {
+  final XXBottomBarItem item;
   final Color? selectedColor;
   final Color? unSelectedColor;
   final double unSelectedFontSize;
@@ -117,7 +117,7 @@ class ComeinBottomNavbarItems extends StatelessWidget {
   final InkShape? buttonShape;
   final BorderRadius? borderRadius;
 
-  const ComeinBottomNavbarItems({
+  const XXBottomNavbarItems({
     Key? key,
     required this.item,
     this.selectedColor,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:octo_image/octo_image.dart';
 
-
 class XXImage extends StatelessWidget {
   final ImageStyle? imageStyle;
 
@@ -23,7 +22,6 @@ class XXImage extends StatelessWidget {
 
   const XXImage(
       {Key? key,
-
       this.imageStyle = ImageStyle.assets,
       required this.imagePath,
       this.fit = BoxFit.contain,

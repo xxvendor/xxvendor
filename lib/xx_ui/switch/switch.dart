@@ -61,7 +61,7 @@ class XXSwitch extends StatefulWidget {
   /// using the [setState] method, so that the parent gets rebuilt; for example:
   ///
   /// ```dart
-  /// ComeinSwitch(
+  /// XXSwitch(
   ///   value: _status,
   ///   width: 110,
   ///   borderRadius: 30.0,

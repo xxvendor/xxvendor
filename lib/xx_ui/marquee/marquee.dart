@@ -5,14 +5,14 @@ import 'package:xx_vendor/xx_ui/marquee/marquee.dart';
 export 'horizontal_marquee.dart';
 export 'vertical_marquee.dart';
 
-class ComeinMarquee extends StatelessWidget {
+class XXMarquee extends StatelessWidget {
   final int? duration;
   final double? stepOffset;
   final double? paddingLeft;
   final List<Widget> items;
   final Axis? scrollDirection;
 
-  const ComeinMarquee(
+  const XXMarquee(
       {Key? key,
       this.paddingLeft,
       this.duration,
