@@ -6,8 +6,11 @@ export 'rich_text_model.dart';
 
 class XXRichText extends StatelessWidget {
   final List<RichTextModel> richTextList;
+  final int? maxLine;
+  final TextOverflow? overflow;
 
-  const XXRichText({Key? key, required this.richTextList})
+  const XXRichText(
+      {Key? key, required this.richTextList, this.maxLine, this.overflow})
       : super(key: key);
 
   @override
@@ -29,6 +32,8 @@ class XXRichText extends StatelessWidget {
     }
 
     return RichText(
+      maxLines: maxLine,
+      overflow: overflow ?? TextOverflow.ellipsis,
       text: TextSpan(
         text: "",
         children: list,

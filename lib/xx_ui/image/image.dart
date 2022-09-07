@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:octo_image/octo_image.dart';
 
-import '../shape/shape.dart';
 
 class XXImage extends StatelessWidget {
   final ImageStyle? imageStyle;
