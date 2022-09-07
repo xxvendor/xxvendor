@@ -32,7 +32,6 @@ class XXTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final BoxConstraints? prefixIconConstraints;
   final BoxConstraints? suffixIconConstraints;
-
   final String? prefixText;
   final String? suffixText;
   final TextStyle? prefixStyle;
@@ -48,7 +47,6 @@ class XXTextField extends StatelessWidget {
   final InputBorder? enableBorder;
   final InputBorder? errorBorder;
   final InputBorder? disabledBorder;
-
   final TextInputType? keyboardType;
   final GestureTapCallback? onTap;
 
