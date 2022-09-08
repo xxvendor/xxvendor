@@ -1,24 +1,15 @@
 import 'dart:async';
 
-
-
-
 import 'package:flutter/cupertino.dart';
-import 'package:xx_vendor/xx_ui/shimmer/shimmer.dart';
-
 
 import '../../xx_vendor.dart';
-import 'xx_get_builder.dart';
-
-
-
-
-abstract class BaseStateFulWidget extends StatefulWidget {
-  const BaseStateFulWidget({Key? key}) : super(key: key);
-}
 
 abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
-    extends State<W> with AfterLayoutMixin {
+    extends State<W>
+    with
+        AfterLayoutMixin,
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin {
   VM? viewModel;
 
   VM createViewModel();
@@ -29,9 +20,9 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
 
   Widget widgetBuilder(BuildContext context, VM vm);
 
-  Object? initControllerId();
+  bool keepAlive();
 
-  String? initControllerTag();
+  readyToDispose();
 
   @override
   void initState() {
@@ -47,28 +38,16 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
 
   @override
   Widget build(BuildContext context) {
-    return XXGetBuilder<VM>(
-      controller: viewModel!,
-      id: initControllerId(),
-      tag: initControllerTag(),
-      builder: (controller) {
-        return controller.showShimmerStatus
-            ? Container(
-                width: getScreenWidth(),
-                height: getScreenHeight(),
-                alignment: Alignment.center,
-                child: XXShimmer(
-                  child: Text(
-                    "X X X X",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: font(28),
-                    ),
-                  ),
-                ),
-              )
-            : widgetBuilder(context, controller);
-      },
-    );
+    super.build(context);
+    return widgetBuilder(context, viewModel!);
+  }
+
+  @override
+  bool get wantKeepAlive => keepAlive();
+
+  @override
+  void dispose() {
+    readyToDispose();
+    super.dispose();
   }
 }
