@@ -11,3 +11,5 @@ export 'swiper/xx_swiper.dart';
 export 'switch/switch.dart';
 export 'tab_bar/tab_bar.dart';
 export 'text_field/text_field.dart';
+export 'package:shimmer/shimmer.dart';
+export 'vvm_get/base.dart';
