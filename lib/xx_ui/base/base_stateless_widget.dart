@@ -8,11 +8,11 @@ abstract class BaseStatelessWidget<VM extends BaseViewModel>
 
   VM createViewModel();
 
-  Widget widgetBuilder(BuildContext context, VM vm);
+  Widget widgetBuild(BuildContext context, VM vm);
 
   @override
   Widget build(BuildContext context) {
     VM viewModel = createViewModel();
-    return widgetBuilder(context, viewModel);
+    return widgetBuild(context, viewModel);
   }
 }

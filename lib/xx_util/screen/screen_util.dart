@@ -18,7 +18,6 @@ initScreenUtil({
   );
 }
 
-//字体缩放
 ///按照屏幕宽缩放
 double scale(num width) {
   return ScreenUtil().setWidth(width);

@@ -18,7 +18,7 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
 
   afterFirstLayoutBuild(BuildContext context, VM vm);
 
-  Widget widgetBuilder(BuildContext context, VM vm);
+  Widget widgetBuild(BuildContext context, VM vm);
 
   bool keepAlive();
 
@@ -39,7 +39,7 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return widgetBuilder(context, viewModel!);
+    return widgetBuild(context, viewModel!);
   }
 
   @override
