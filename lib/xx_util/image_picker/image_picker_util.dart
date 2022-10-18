@@ -1,40 +1,54 @@
 import 'package:images_picker/images_picker.dart';
 import 'package:xx_vendor/xx_util/permission/permission_util.dart';
 
-class XXImagePickerUtil {
-  static Future<Media?> pickImageByGallery(
-      {required Function onNoPermissionCallback}) async {
+class XXMediaPickerUtil {
+  static Future<List<Media>?> pickMediaByGallery({
+    required Function onNoPermissionCallback,
+    PickType? pickType,
+    int? count,
+    bool? gif,
+    int? maxTime,
+    CropOption? cropOpt,
+    int? maxSize,
+    double? quality,
+  }) async {
     bool granted = await XXPermissionUtil.requestCameraPermissions();
-    Media? media;
+    List<Media>? list;
     if (granted) {
-      List<Media>? list = await ImagesPicker.pick(
-        count: 1,
-        pickType: PickType.image,
-      );
-      if (list != null && list.isNotEmpty) {
-        media = list[0];
-      }
+      list = await ImagesPicker.pick(
+          pickType: pickType ?? PickType.image,
+          count: count ?? 1,
+          gif: gif ?? true,
+          maxTime: maxTime ?? 120,
+          cropOpt: cropOpt,
+          maxSize: maxSize,
+          quality: quality);
     } else {
       onNoPermissionCallback();
     }
-
-    return media;
+    return list;
   }
 
-  static Future<Media?> pickImageByCamera(
-      {required Function onNoPermissionCallback}) async {
+  static Future<List<Media>?> pickMediaByCamera({
+    required Function onNoPermissionCallback,
+    PickType? pickType,
+    int? maxTime,
+    CropOption? cropOpt,
+    int? maxSize,
+    double? quality,
+  }) async {
     bool granted = await XXPermissionUtil.requestCameraPermissions();
-    Media? media;
+    List<Media>? list;
     if (granted) {
-      List<Media>? list = await ImagesPicker.openCamera(
-        pickType: PickType.image,
-      );
-      if (list != null && list.isNotEmpty) {
-        media = list[0];
-      }
+      list = await ImagesPicker.openCamera(
+          pickType: pickType ?? PickType.image,
+          maxTime: maxTime ?? 120,
+          maxSize: maxSize,
+          cropOpt: cropOpt,
+          quality: quality);
     } else {
       onNoPermissionCallback();
     }
-    return media;
+    return list;
   }
 }

@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../../xx_model/media/xx_media.dart';
 import '../../../xx_util/color/color_util.dart';
 import '../../../xx_util/image_picker/image_picker_util.dart';
 import '../../xx_ui.dart';
 
-
+export 'package:images_picker/images_picker.dart';
 
 
 class XXImagePicker extends StatelessWidget {
@@ -124,7 +123,7 @@ class XXImagePicker extends StatelessWidget {
         ]));
   }
 
-  static Future<XXMedia?> show({String? galleryTitle,
+  static Future<List<Media>? > show({String? galleryTitle,
     TextStyle? galleryTextStyle,
     String? cameraTitle,
     TextStyle? cameraTextStyle,
@@ -133,8 +132,7 @@ class XXImagePicker extends StatelessWidget {
     required Function onNoPermissionCallback,
     required BuildContext context,
   }) async {
-    XXMedia? xxMedia;
-    Media? media;
+    List<Media>? list;
     var result = await showCupertinoDialog(
         barrierDismissible: true,
         context: context,
@@ -153,18 +151,15 @@ class XXImagePicker extends StatelessWidget {
         });
     if (result != null) {
       if (result == popResultCamera) {
-        media = await XXImagePickerUtil.pickImageByCamera(
+        list = await XXMediaPickerUtil.pickMediaByCamera(
             onNoPermissionCallback: onNoPermissionCallback);
       } else if (result == popResultGallery) {
-        media = await XXImagePickerUtil.pickImageByGallery(
+        list = await XXMediaPickerUtil.pickMediaByGallery(
             onNoPermissionCallback: onNoPermissionCallback);
       }
     }
 
-    if (media != null) {
-      xxMedia = XXMedia(
-          path: media.path, thumbPath: media.thumbPath, size: media.size);
-    }
-    return xxMedia;
+
+    return list;
   }
 }
