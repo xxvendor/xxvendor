@@ -5,7 +5,7 @@ use:
     git:
       url: https://github.com/xxvendor/xxvendor.git
 ```
-
+*********
 XXImagePicker需要如下配置：
 for ios
 
@@ -26,3 +26,4 @@ for android
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.RECORD_AUDIO" />
 ```
+********

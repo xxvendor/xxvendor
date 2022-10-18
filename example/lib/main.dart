@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xx_vendor/xx_model/media/xx_media.dart';
 import 'package:xx_vendor/xx_ui/picker/image_picker/image_picker.dart';
 
 void main() {
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  await XXImagePicker.show(
+                  XXMedia? xxMedia = await XXImagePicker.show(
                       onNoPermissionCallback: () {
                         print("noPermission");
                       },

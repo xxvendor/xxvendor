@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xx_vendor/xx_ui/xx_ui.dart';
-import 'package:xx_vendor/xx_util/xx_util.dart';
+
 
 enum SendValidateStatus {
   idle,
@@ -156,12 +156,12 @@ class _ValidateCodeInputTextFieldState
         isCollapsed: true,
         keyboardType: TextInputType.number,
         contentPadding:
-            EdgeInsets.symmetric(horizontal: scale(20), vertical: scale(13)),
+            const EdgeInsets.symmetric(horizontal: 20, vertical:13),
         filledColor: const Color(0xffF7FAFA),
         hintText: widget.hintText ?? "请输入手机号",
-        hintStyle: TextStyle(
-          color: const Color(0xFFB4B8B7),
-          fontSize: font(15),
+        hintStyle: const TextStyle(
+          color: Color(0xFFB4B8B7),
+          fontSize: 15,
           fontWeight: FontWeight.normal,
         ),
         border: OutlineInputBorder(
@@ -184,7 +184,7 @@ class _ValidateCodeInputTextFieldState
         autoFocus: false,
         showCursor: true,
         cursorColor: Colors.orange,
-        suffixIconConstraints: BoxConstraints(maxWidth: 110.w, minWidth: 110.w),
+        suffixIconConstraints: const BoxConstraints(maxWidth: 110, minWidth: 110),
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -207,12 +207,12 @@ class _ValidateCodeInputTextFieldState
                             : null,
                         child: Container(
                           alignment: Alignment.center,
-                          width: 90.w,
+                          width: 90,
                           child: Text(
                             snapShot.data ?? "获取验证码",
-                            style: TextStyle(
-                              color: const Color(0xFF29CCB7),
-                              fontSize: 15.sp,
+                            style: const TextStyle(
+                              color: Color(0xFF29CCB7),
+                              fontSize: 15,
                               fontWeight: FontWeight.w400,
                               fontFamily: "PingFang SC",
                             ),
@@ -222,8 +222,8 @@ class _ValidateCodeInputTextFieldState
                     },
                   );
                 }),
-            SizedBox(
-              width: 20.w,
+            const SizedBox(
+              width: 20,
             )
           ],
         ));
