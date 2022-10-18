@@ -48,7 +48,4 @@ double getScreenPixelRatio() {
   return ScreenUtil().pixelRatio ?? 1;
 }
 
-///statusBarHeight
-double getStatusBarHeight() {
-  return ScreenUtil().statusBarHeight;
-}
+
