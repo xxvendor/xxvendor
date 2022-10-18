@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../../xx_util/color/color_util.dart';
 import '../../../xx_util/image_picker/image_picker_util.dart';
 import '../../xx_ui.dart';
 
 export 'package:images_picker/images_picker.dart';
-
 
 class XXImagePicker extends StatelessWidget {
   final String? galleryTitle;
@@ -17,16 +15,14 @@ class XXImagePicker extends StatelessWidget {
   final String? cancelTitle;
   final TextStyle? cancelTextStyle;
 
-  static const String popResultCamera = "camera";
-  static const String popResultGallery = "gallery";
-
-  const XXImagePicker({Key? key,
-    this.galleryTitle,
-    this.cameraTitle,
-    this.cancelTitle,
-    this.galleryTextStyle,
-    this.cameraTextStyle,
-    this.cancelTextStyle})
+  const XXImagePicker(
+      {Key? key,
+      this.galleryTitle,
+      this.cameraTitle,
+      this.cancelTitle,
+      this.galleryTextStyle,
+      this.cameraTextStyle,
+      this.cancelTextStyle})
       : super(key: key);
 
   @override
@@ -46,8 +42,7 @@ class XXImagePicker extends StatelessWidget {
               children: [
                 XXInkWell(
                   onTap: () {
-                    Navigator.of(context).pop(popResultCamera);
-
+                    Navigator.of(context).pop("camera");
                   },
                   color: Colors.white,
                   borderRadius: const BorderRadius.only(
@@ -70,7 +65,7 @@ class XXImagePicker extends StatelessWidget {
                 ),
                 XXInkWell(
                   onTap: () {
-                    Navigator.of(context).pop(popResultGallery);
+                    Navigator.of(context).pop("gallery");
                   },
                   color: Colors.white,
                   inkShape: InkShape.roundedRectangle,
@@ -123,7 +118,8 @@ class XXImagePicker extends StatelessWidget {
         ]));
   }
 
-  static Future<List<Media>? > show({String? galleryTitle,
+  static Future<List<Media>?> show({
+    String? galleryTitle,
     TextStyle? galleryTextStyle,
     String? cameraTitle,
     TextStyle? cameraTextStyle,
@@ -131,6 +127,13 @@ class XXImagePicker extends StatelessWidget {
     TextStyle? cancelTextStyle,
     required Function onNoPermissionCallback,
     required BuildContext context,
+    PickType? pickType,
+    int? count,
+    bool? gif,
+    int? maxTime,
+    CropOption? cropOpt,
+    int? maxSize,
+    double? quality,
   }) async {
     List<Media>? list;
     var result = await showCupertinoDialog(
@@ -150,15 +153,26 @@ class XXImagePicker extends StatelessWidget {
               ));
         });
     if (result != null) {
-      if (result == popResultCamera) {
+      if (result == "camera") {
         list = await XXMediaPickerUtil.pickMediaByCamera(
-            onNoPermissionCallback: onNoPermissionCallback);
-      } else if (result == popResultGallery) {
+            onNoPermissionCallback: onNoPermissionCallback,
+            pickType: pickType ?? PickType.image,
+            maxTime: maxTime ?? 120,
+            cropOpt: cropOpt,
+            maxSize: maxSize,
+            quality: quality);
+      } else if (result == "gallery") {
         list = await XXMediaPickerUtil.pickMediaByGallery(
+            pickType: pickType ?? PickType.image,
+            count: count ?? 1,
+            gif: gif ?? true,
+            maxTime: maxTime ?? 120,
+            cropOpt: cropOpt,
+            maxSize: maxSize,
+            quality: quality,
             onNoPermissionCallback: onNoPermissionCallback);
       }
     }
-
 
     return list;
   }
