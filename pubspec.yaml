@@ -18,6 +18,7 @@ dependencies:
   shimmer: ^2.0.0
   images_picker: ^1.2.4
   permission_handler: ^9.2.0
+  http: ^0.13.5
 
 
 dev_dependencies:
