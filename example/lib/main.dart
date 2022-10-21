@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import 'package:xx_vendor/xx_ui/picker/image_picker/image_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:xx_vendor/xx_util/http/http.dart';
 
 void main() {
   runApp(const MyApp());
@@ -112,7 +115,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onPressed: () async {
+                  /* List<Media>? mediaList = await XXImagePicker.show(
+                      onNoPermissionCallback: () {}, context: context);*/
+                  https: //cos.pgyer.com/b5fbde526de4aa7b1419f9eb5312355f.apk?sign=b946ecc1e67e1e4e0672d192a5b75dab&t=1666317837&response-content-disposition=attachment%3Bfilename%3D%E4%BC%9A%E8%AE%AE%E5%8A%A9%E6%89%8B_1.0.0.apk
+                  Directory? tempDir = await getExternalStorageDirectory();
+                  String savePath = "${tempDir?.path}/xx.apk";
 
+                  File? file = await HttpUtil.downloadFile(
+                      url:
+                          "https://cos.pgyer.com/084512280f752d2a2f90b6aacca3259d.apk?sign=2dcdc85047bd4a1c9d0ed3ca185ff5b1&t=1666322890&response-content-disposition=attachment%3Bfilename%3Dsmartidc_1.0.0.apk",
+                      savePath: savePath,
+                      downloadProgressCallback:
+                          (int bytesDownloaded, int bytesTotal) {
+                        if (kDebugMode) {
+                          print("总大小：$bytesTotal");
+                          print("已下载大小：$bytesDownloaded");
+                        }
+                      });
+
+                  print(file == null);
+                  print(file?.path);
+                  if (file != null) {
+                    if (kDebugMode) {
+                      print("文件大小：${file.length()}");
+                      print("文件本地路径：${file.path}");
+                    }
+                  }
                 })
           ],
         ),
