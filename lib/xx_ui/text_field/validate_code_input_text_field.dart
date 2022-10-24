@@ -201,7 +201,6 @@ class _ValidateCodeInputTextFieldState
                         color: Colors.transparent,
                         onTap: (tapSnapShot.data != null && tapSnapShot.data!)
                             ? () {
-                                canTapStatusStreamController.add(false);
                                 widget.onSendValidateCodeTap();
                               }
                             : null,
