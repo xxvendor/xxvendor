@@ -158,7 +158,7 @@ class _ValidateCodeInputTextFieldState
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical:13),
         filledColor: const Color(0xffF7FAFA),
-        hintText: widget.hintText ?? "请输入手机号",
+        hintText: widget.hintText ?? "请输入验证码",
         hintStyle: const TextStyle(
           color: Color(0xFFB4B8B7),
           fontSize: 15,
