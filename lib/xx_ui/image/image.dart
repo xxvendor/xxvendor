@@ -6,8 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:octo_image/octo_image.dart';
 
 class XXImage extends StatelessWidget {
-  final ImageStyle? imageStyle;
-
   final String imagePath;
   final BoxFit? fit;
   final Color? color;
@@ -18,59 +16,77 @@ class XXImage extends StatelessWidget {
   final int? maxHeight;
   final Widget? placeholderBuilder;
   final Widget? errorBuilder;
-  final bool? enableSvg;
 
-  const XXImage(
-      {Key? key,
-      this.imageStyle = ImageStyle.assets,
-      required this.imagePath,
-      this.fit = BoxFit.contain,
-      this.width,
-      this.height,
-      this.maxWidth,
-      this.maxHeight,
-      this.size,
-      this.placeholderBuilder,
-      this.errorBuilder,
-      this.color,
-      this.enableSvg = false})
-      : super(key: key);
+  const XXImage({
+    Key? key,
+    required this.imagePath,
+    this.fit = BoxFit.contain,
+    this.width,
+    this.height,
+    this.maxWidth,
+    this.maxHeight,
+    this.size,
+    this.placeholderBuilder,
+    this.errorBuilder,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    switch (imageStyle) {
-      case ImageStyle.file:
-        widget = imageWidget(fileImageWidget());
-        break;
-      case ImageStyle.assets:
-        widget = imageWidget(assetsImageWidget());
-        break;
-      case ImageStyle.network:
-        widget = imageWidget(networkImageWidget());
-        break;
-      default:
-        widget = imageWidget(networkImageWidget());
-        break;
+    if (imagePath.startsWith("https://") || imagePath.startsWith("http://")) {
+      //networkImage
+      widget = networkImageWidget(enableSvg: imagePath.endsWith(".svg"));
+    } else if (imagePath.startsWith("assets/")) {
+      //assetsImage
+      widget = assetsImageWidget(enableSvg: imagePath.endsWith(".svg"));
+    } else {
+      //文件图片
+      widget = fileImageWidget(enableSvg: imagePath.endsWith(".svg"));
     }
+
     return widget;
   }
 
-  Widget networkImageWidget() {
-    return octoImageWidget(CachedNetworkImageProvider(imagePath,
-        maxHeight: maxHeight, maxWidth: maxWidth));
+  Widget networkImageWidget({required bool enableSvg}) {
+    return enableSvg
+        ? SvgPicture.network(
+            imagePath,
+            color: color,
+            width: width,
+            height: height,
+            fit: fit ?? BoxFit.contain,
+            placeholderBuilder: (context) {
+              return placeholderBuilder ?? const SizedBox();
+            },
+          )
+        : octoImageWidget(CachedNetworkImageProvider(imagePath,
+            maxHeight: maxHeight, maxWidth: maxWidth));
   }
 
-  Widget fileImageWidget() {
-    return octoImageWidget(FileImage(
-      File(
-        imagePath,
-      ),
-    ));
+  Widget fileImageWidget({required bool enableSvg}) {
+    return enableSvg
+        ? SvgPicture.file(
+            File(
+              imagePath,
+            ),
+            color: color,
+            width: width,
+            height: height,
+            fit: fit ?? BoxFit.contain,
+            placeholderBuilder: (context) {
+              return placeholderBuilder ?? const SizedBox();
+            },
+          )
+        : octoImageWidget(FileImage(
+            File(
+              imagePath,
+            ),
+          ));
   }
 
-  Widget assetsImageWidget() {
-    return enableSvg!
+  Widget assetsImageWidget({required bool enableSvg}) {
+    return enableSvg
         ? SvgPicture.asset(
             imagePath,
             color: color,
@@ -100,10 +116,6 @@ class XXImage extends StatelessWidget {
       },
       fit: fit,
     );
-  }
-
-  Widget imageWidget(Widget imageWidget) {
-    return imageWidget;
   }
 }
 

@@ -162,7 +162,6 @@ class XXBottomNavbarItems extends StatelessWidget {
                 children: [
                   XXImage(
                     imagePath: item.icon,
-                    imageStyle: ImageStyle.network,
                     size: currentIndex == index
                         ? selectedIconSize
                         : unselectedIconSize,
