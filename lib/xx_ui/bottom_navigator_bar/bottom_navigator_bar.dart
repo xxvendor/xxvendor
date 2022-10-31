@@ -6,7 +6,7 @@ import '../xx_ui.dart';
 
 
 
-typedef OnTap = Function(int index);
+typedef OnItemTap = Function(int index);
 
 class XXBottomNavigatorBar extends StatelessWidget {
   final Color? backgroundColor;
@@ -17,7 +17,7 @@ class XXBottomNavigatorBar extends StatelessWidget {
   final Color? splashColor;
   final Color? highlightColor;
   final int currentIndex;
-  final OnTap onTap;
+  final OnItemTap onTap;
   final double selectedFontSize;
   final double selectedIconSize;
   final double unselectedIconSize;

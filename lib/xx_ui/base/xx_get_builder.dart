@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+export 'package:get/get.dart';
 
 class XXGetBuilder<T extends GetxController> extends StatelessWidget {
   final Widget Function(T controller) builder;

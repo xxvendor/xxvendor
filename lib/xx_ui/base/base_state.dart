@@ -14,15 +14,17 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
 
   VM createViewModel();
 
-  afterVMInit(VM vm);
+  afterVMInit(VM vm){}
 
-  afterFirstLayoutBuild(BuildContext context, VM vm);
+  afterFirstLayoutBuild(BuildContext context, VM vm){}
 
   Widget widgetBuild(BuildContext context, VM vm);
 
-  bool keepAlive();
+  bool keepAlive(){
+    return false;
+  }
 
-  readyToDispose();
+
 
   @override
   void initState() {
@@ -45,9 +47,5 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
   @override
   bool get wantKeepAlive => keepAlive();
 
-  @override
-  void dispose() {
-    readyToDispose();
-    super.dispose();
-  }
+
 }
