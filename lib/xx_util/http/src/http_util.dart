@@ -28,7 +28,7 @@ class HttpUtil {
     Object? body,
     bool needRetry = false,
     int maxAttempts = 0,
-    Encoding? encoding,
+    Encoding encoding=const Utf8Codec(),
     FutureOr<bool> Function(Exception)? retryIf,
     FutureOr<void> Function(Exception)? onRetry,
   }) async {
@@ -74,6 +74,7 @@ class HttpUtil {
     Object? body,
     Encoding? encoding,
   }) async {
+
     Uri uri = generateUri(url: url, queryParameters: queryParameters);
 
     late Response response;
@@ -115,7 +116,7 @@ class HttpUtil {
         "\n${"headers:$headers"}"
         "\n${"body:$body"}"
         "\n${"response code:${response.statusCode}"}"
-        "\n${"response body:${json.decode(utf8.decode(response.bodyBytes))}"}"
+        "\n${"response body:${response.body}"}"
         "\n${"--------------------------------------------------"}");
     return response;
   }
@@ -151,6 +152,7 @@ class HttpUtil {
     Object? body,
     Encoding? encoding,
   }) async {
+
     return await xxHttpClient!
         .put(
           uri,

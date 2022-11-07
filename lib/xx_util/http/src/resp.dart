@@ -1,7 +1,7 @@
 /// 返回数据
 class Resp {
   dynamic code;
-  dynamic? errorCode;
+  dynamic errorCode;
   dynamic msg;
   dynamic data;
   dynamic errorDesc;
