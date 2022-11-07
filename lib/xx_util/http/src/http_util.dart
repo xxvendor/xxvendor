@@ -125,6 +125,7 @@ class HttpUtil {
         "\n${"headers:$headers"}"
         "\n${"body:$body"}"
         "\n${"formDataBody:$formDataBody"}"
+        "\n${"response.request:${response.request}"}"
         "\n${"response code:${response.statusCode}"}"
         "\n${"response body:${response.body}"}"
         "\n${"--------------------------------------------------"}");
