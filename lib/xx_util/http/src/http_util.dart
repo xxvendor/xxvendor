@@ -115,7 +115,7 @@ class HttpUtil {
         "\n${"headers:$headers"}"
         "\n${"body:$body"}"
         "\n${"response code:${response.statusCode}"}"
-        "\n${"response body:${response.body}"}"
+        "\n${"response body:${json.decode(utf8.decode(response.bodyBytes))}"}"
         "\n${"--------------------------------------------------"}");
     return response;
   }
