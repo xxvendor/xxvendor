@@ -122,7 +122,7 @@ class HttpUtil {
 
     LogUtils.i("--------------------------------------------------"
         "\n${"request url:$url"}"
-        "\n${"requestMethod:$requestMethod"}"
+        "\n${"requestMethod:${requestMethod.type}"}"
         "\n${"queryParameters:$queryParameters"}"
         "\n${"headers:$headers"}"
         "\n${"body:$body"}"
