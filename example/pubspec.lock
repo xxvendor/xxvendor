@@ -165,13 +165,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.11"
-  jwt_decoder:
-    dependency: transitive
-    description:
-      name: jwt_decoder
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.1"
   lints:
     dependency: transitive
     description:
@@ -179,10 +172,10 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
-  logging:
+  logger:
     dependency: transitive
     description:
-      name: logging
+      name: logger
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
@@ -207,13 +200,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0"
-  nhost_sdk:
-    dependency: transitive
-    description:
-      name: nhost_sdk
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.4"
   octo_image:
     dependency: transitive
     description:

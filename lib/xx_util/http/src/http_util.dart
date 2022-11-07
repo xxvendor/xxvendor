@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 import 'package:retry/retry.dart';
 import 'package:xx_vendor/model/media/xx_media.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
+import 'package:xx_vendor/xx_util/log/log_util.dart';
 
 typedef UploadProgressCallback = void Function(
     http.MultipartRequest request, int bytesUploaded, int bytesTotal);
@@ -107,6 +108,15 @@ class HttpUtil {
         break;
     }
 
+    LogUtils.e("--------------------------------------------------");
+    LogUtils.e("request url:$url");
+    LogUtils.e("requestMethod:$requestMethod");
+    LogUtils.e("queryParameters:$queryParameters");
+    LogUtils.e("headers:$headers");
+    LogUtils.e("body:$body");
+    LogUtils.e("response code:${response.statusCode}");
+    LogUtils.e("response body:${response.body}");
+    LogUtils.e("--------------------------------------------------");
     return response;
   }
 
