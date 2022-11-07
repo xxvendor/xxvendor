@@ -44,6 +44,7 @@ class HttpUtil {
                   queryParameters: queryParameters,
                   headers: headers,
                   body: body,
+                  formDataBody: formDataBody,
                   encoding: encoding),
               maxAttempts: maxAttempts,
               retryIf: retryIf,
@@ -54,6 +55,7 @@ class HttpUtil {
               queryParameters: queryParameters,
               headers: headers,
               body: body,
+              formDataBody: formDataBody,
               encoding: encoding);
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
@@ -125,9 +127,8 @@ class HttpUtil {
         "\n${"headers:$headers"}"
         "\n${"body:$body"}"
         "\n${"formDataBody:$formDataBody"}"
-        "\n${"response.request:${response.request}"}"
         "\n${"response code:${response.statusCode}"}"
-        "\n${"response body:${response.body}"}"
+        "\n${"response body:${jsonDecode(utf8.decode(response.bodyBytes))}"}"
         "\n${"--------------------------------------------------"}");
     return response;
   }
