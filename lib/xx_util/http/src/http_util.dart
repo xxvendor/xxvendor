@@ -26,9 +26,10 @@ class HttpUtil {
     Map<String, dynamic>? queryParameters,
     Map<String, String>? headers,
     Object? body,
+    Map<String, String>? formDataBody,
     bool needRetry = false,
     int maxAttempts = 0,
-    Encoding encoding=const Utf8Codec(),
+    Encoding encoding = const Utf8Codec(),
     FutureOr<bool> Function(Exception)? retryIf,
     FutureOr<void> Function(Exception)? onRetry,
   }) async {
@@ -72,41 +73,49 @@ class HttpUtil {
     Map<String, dynamic>? queryParameters,
     Map<String, String>? headers,
     Object? body,
+    Map<String, String>? formDataBody,
     Encoding? encoding,
   }) async {
-
     Uri uri = generateUri(url: url, queryParameters: queryParameters);
 
     late Response response;
 
-    switch (requestMethod) {
-      case RequestMethod.get:
-        response = await get(uri: uri, headers: headers);
-        break;
-      case RequestMethod.post:
-        response = await post(
-          uri: uri,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-        );
-        break;
-      case RequestMethod.put:
-        response = await put(
-          uri: uri,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-        );
-        break;
-      case RequestMethod.delete:
-        response = await delete(
-          uri: uri,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-        );
-        break;
+    if (formDataBody == null) {
+      switch (requestMethod) {
+        case RequestMethod.get:
+          response = await get(uri: uri, headers: headers);
+          break;
+        case RequestMethod.post:
+          response = await post(
+            uri: uri,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+          );
+          break;
+        case RequestMethod.put:
+          response = await put(
+            uri: uri,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+          );
+          break;
+        case RequestMethod.delete:
+          response = await delete(
+            uri: uri,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+          );
+          break;
+      }
+    } else {
+      response = await formDataRequest(
+        uri: uri,
+        headers: headers,
+        formDataBody: formDataBody,
+      );
     }
 
     LogUtils.i("--------------------------------------------------"
@@ -152,7 +161,6 @@ class HttpUtil {
     Object? body,
     Encoding? encoding,
   }) async {
-
     return await xxHttpClient!
         .put(
           uri,
@@ -177,6 +185,31 @@ class HttpUtil {
           encoding: encoding,
         )
         .timeout(timeOutDuration);
+  }
+
+  static Future<Response> formDataRequest({
+    required Uri uri,
+    Map<String, String>? headers,
+    RequestMethod requestMethod = RequestMethod.post,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? formDataBody,
+  }) async {
+    generateXXClient();
+    var multipartRequest = http.MultipartRequest(requestMethod.type, uri);
+    if (headers != null) {
+      multipartRequest.headers.clear();
+      multipartRequest.headers.addAll(headers);
+    }
+
+    multipartRequest.fields.clear();
+    multipartRequest.fields.addAll(formDataBody ?? {});
+
+    late Response response;
+
+    response = await http.Response.fromStream(
+        await xxHttpClient!.send(multipartRequest));
+
+    return response;
   }
 
   ///upload 可能还有点问题
