@@ -108,15 +108,15 @@ class HttpUtil {
         break;
     }
 
-    LogUtils.e("--------------------------------------------------");
-    LogUtils.e("request url:$url");
-    LogUtils.e("requestMethod:$requestMethod");
-    LogUtils.e("queryParameters:$queryParameters");
-    LogUtils.e("headers:$headers");
-    LogUtils.e("body:$body");
-    LogUtils.e("response code:${response.statusCode}");
-    LogUtils.e("response body:${response.body}");
-    LogUtils.e("--------------------------------------------------");
+    LogUtils.i("--------------------------------------------------"
+        "\n${"request url:$url"}"
+        "\n${"requestMethod:$requestMethod"}"
+        "\n${"queryParameters:$queryParameters"}"
+        "\n${"headers:$headers"}"
+        "\n${"body:$body"}"
+        "\n${"response code:${response.statusCode}"}"
+        "\n${"response body:${response.body}"}"
+        "\n${"--------------------------------------------------"}");
     return response;
   }
 
