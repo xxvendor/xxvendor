@@ -1,7 +1,7 @@
 /// 返回数据
 class Resp {
-  String? code;
-  String? errorCode;
+  dynamic code;
+  dynamic? errorCode;
   dynamic msg;
   dynamic data;
   dynamic errorDesc;
@@ -13,7 +13,7 @@ class Resp {
     errorCode = json['errorcode'];
     msg = json['msg'] ?? '';
     errorDesc = json['errordesc'] ?? '';
-    data = json['data'] ;
+    data = json['data'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,5 +27,5 @@ class Resp {
   }
 
   /// 是否成功
-  bool get success => code ==  "0";
+  bool get success => code == "0" || code == 0;
 }
