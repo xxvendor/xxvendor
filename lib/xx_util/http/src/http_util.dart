@@ -344,15 +344,17 @@ class HttpUtil {
     return file;
   }
 
-  static setCommonHeader({required Map<String, String> commonHeaders}) {
+  static setHeaders({required Map<String, String> headers}) {
     if (xxHttpClient != null) {
       xxHttpClient = XXHttpClient(
-          client: xxHttpClient!.client, commonHeaders: commonHeaders);
+          client: xxHttpClient!.client, headers: headers);
     } else {
       xxHttpClient =
-          XXHttpClient(client: http.Client(), commonHeaders: commonHeaders);
+          XXHttpClient(client: http.Client(), headers: headers);
     }
   }
+
+
 
   static generateXXClient() {
     xxHttpClient ??= XXHttpClient(client: http.Client());
