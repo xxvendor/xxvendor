@@ -34,6 +34,8 @@ class HttpUtil {
     FutureOr<void> Function(Exception)? onRetry,
   }) async {
     generateXXClient();
+
+
     late Resp resp;
     try {
       Response response = needRetry
@@ -346,15 +348,12 @@ class HttpUtil {
 
   static setHeaders({required Map<String, String> headers}) {
     if (xxHttpClient != null) {
-      xxHttpClient = XXHttpClient(
-          client: xxHttpClient!.client, headers: headers);
-    } else {
       xxHttpClient =
-          XXHttpClient(client: http.Client(), headers: headers);
+          XXHttpClient(client: xxHttpClient!.client, headers: headers);
+    } else {
+      xxHttpClient = XXHttpClient(client: http.Client(), headers: headers);
     }
   }
-
-
 
   static generateXXClient() {
     xxHttpClient ??= XXHttpClient(client: http.Client());

@@ -8,9 +8,17 @@ class XXHttpClient extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) {
-    Map<String, String>? allHeaders = request.headers;
-    request.headers.clear();
-    allHeaders.addAll(headers ?? {});
+    Map<String, String> requestHeaders = request.headers;
+    Map<String, String> allHeaders = {};
+
+    if (headers != null) {
+      allHeaders.addAll(headers ?? {});
+    }
+
+    if (requestHeaders.isNotEmpty) {
+      allHeaders.clear();
+      allHeaders.addAll(requestHeaders);
+    }
     request.headers.addAll(allHeaders);
     return client.send(request);
   }
