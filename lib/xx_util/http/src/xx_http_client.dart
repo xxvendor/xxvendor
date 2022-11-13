@@ -19,6 +19,8 @@ class XXHttpClient extends BaseClient {
       allHeaders.clear();
       allHeaders.addAll(requestHeaders);
     }
+
+
     request.headers.addAll(allHeaders);
     return client.send(request);
   }

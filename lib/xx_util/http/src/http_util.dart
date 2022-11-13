@@ -126,7 +126,7 @@ class HttpUtil {
         "\n${"request url:$url"}"
         "\n${"requestMethod:${requestMethod.type}"}"
         "\n${"queryParameters:$queryParameters"}"
-        "\n${"headers:$headers"}"
+        "\n${"headers:${response.headers}"}"
         "\n${"body:$body"}"
         "\n${"formDataBody:$formDataBody"}"
         "\n${"response code:${response.statusCode}"}"
