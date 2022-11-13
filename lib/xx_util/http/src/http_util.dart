@@ -124,9 +124,9 @@ class HttpUtil {
 
     LogUtils.i("--------------------------------------------------"
         "\n${"request url:$url"}"
-        "\n${"requestMethod:${requestMethod.type}"}"
+        "\n${"requestMethod:${response.request?.method}"}"
         "\n${"queryParameters:$queryParameters"}"
-        "\n${"headers:${response.headers}"}"
+        "\n${"headers:${response.request?.headers}"}"
         "\n${"body:$body"}"
         "\n${"formDataBody:$formDataBody"}"
         "\n${"response code:${response.statusCode}"}"
