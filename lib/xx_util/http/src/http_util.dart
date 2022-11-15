@@ -130,7 +130,6 @@ class HttpUtil {
           "\n${"body:$body"}"
           "\n${"formDataBody:$formDataBody"}"
           "\n${"response code:${response.statusCode}"}"
-          "\n${"response code:${response.body}"}"
           "\n${"response body:${jsonDecode(utf8.decode(response.bodyBytes))}"}"
           "\n${"--------------------------------------------------"}");
     } catch (e) {
@@ -283,8 +282,8 @@ class HttpUtil {
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
-    } on ClientException catch (e) {
-      resp = Resp(code: "-1", msg: e.message);
+    } catch (e) {
+      resp = Resp(code: "-1", msg: e.toString());
     } finally {
       xxHttpClient!.close();
     }
@@ -357,8 +356,8 @@ class HttpUtil {
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
-    } on ClientException catch (e) {
-      resp = Resp(code: "-1", msg: e.message);
+    }  catch (e) {
+      resp = Resp(code: "-1", msg: e.toString());
     } finally {
       xxHttpClient!.close();
     }
