@@ -61,8 +61,8 @@ class HttpUtil {
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
-    } on ClientException catch (e) {
-      resp = Resp(code: "-1", msg: e.message);
+    } catch (e) {
+      resp = Resp(code: "-1", msg: e.toString());
     } finally {
       xxHttpClient!.close();
     }
