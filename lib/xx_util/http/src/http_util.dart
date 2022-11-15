@@ -35,7 +35,6 @@ class HttpUtil {
   }) async {
     generateXXClient();
 
-
     late Resp resp;
     try {
       Response response = needRetry
@@ -217,6 +216,76 @@ class HttpUtil {
     return response;
   }
 
+  static Future<Resp> uploadSingleFile(
+      {required String url,
+      Map<String, String>? headers,
+      RequestMethod requestMethod = RequestMethod.post,
+      Map<String, dynamic>? queryParameters,
+      UploadProgressCallback? onUploadProgress,
+      required String field,
+      required XXMedia file}) async {
+    late Resp resp;
+    generateXXClient();
+    Uri uri = generateUri(url: url, queryParameters: queryParameters);
+    var multipartRequest = http.MultipartRequest(requestMethod.type, uri);
+
+    if (headers != null) {
+      multipartRequest.headers.clear();
+      multipartRequest.headers.addAll(headers);
+    }
+
+    multipartRequest.files.clear();
+    multipartRequest.files.add(MultipartFile(
+        field,
+        File(file.mediaPath).readAsBytes().asStream(),
+        File(file.mediaPath).lengthSync(),
+        filename: file.mediaName.split("/").last));
+
+    http.BaseRequest requestToSend;
+    if (onUploadProgress != null) {
+      final chunkedByteStream = chunkStream(
+        multipartRequest.finalize(),
+        chunkLength: multipartChunkSize,
+      );
+
+      var bytesUploaded = 0;
+      final bytesTotal = multipartRequest.contentLength;
+      final observedByteStream = chunkedByteStream
+          .transform(StreamTransformer<List<int>, List<int>>.fromHandlers(
+        handleData: (data, sink) {
+          sink.add(data);
+          bytesUploaded += data.length;
+          onUploadProgress(multipartRequest, bytesUploaded, bytesTotal);
+        },
+        handleError: (error, stackTrace, sink) =>
+            throw AsyncError(error, stackTrace),
+        handleDone: (sink) => sink.close(),
+      ));
+
+      requestToSend =
+          StreamWrappingRequest(requestMethod.type, uri, observedByteStream)
+            ..contentLength = multipartRequest.contentLength
+            ..headers.addAll(multipartRequest.headers);
+    } else {
+      requestToSend = multipartRequest;
+    }
+
+    late Response response;
+    try {
+      response = await http.Response.fromStream(
+          await xxHttpClient!.send(requestToSend));
+      var decodedResponse =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      resp = Resp.fromJson(decodedResponse);
+    } on ClientException catch (e) {
+      resp = Resp(code: "-1", msg: e.message);
+    } finally {
+      xxHttpClient!.close();
+    }
+
+    return resp;
+  }
+
   ///upload 可能还有点问题
   static Future<Resp> uploadFile(
       {required String url,
@@ -230,8 +299,11 @@ class HttpUtil {
     generateXXClient();
     Uri uri = generateUri(url: url, queryParameters: queryParameters);
     var multipartRequest = http.MultipartRequest(requestMethod.type, uri);
-    multipartRequest.headers.clear();
-    multipartRequest.headers.addAll(headers ?? {});
+    if (headers != null) {
+      multipartRequest.headers.clear();
+      multipartRequest.headers.addAll(headers);
+    }
+
     multipartRequest.files.clear();
     multipartRequest.files.addAll(files.map((e) => MultipartFile(
         e.mediaName,
