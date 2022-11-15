@@ -11,7 +11,7 @@ import 'package:xx_vendor/xx_util/http/http.dart';
 import 'package:xx_vendor/xx_util/log/log_util.dart';
 
 typedef UploadProgressCallback = void Function(
-    http.MultipartRequest request, int bytesUploaded, int bytesTotal);
+    int bytesUploaded, int bytesTotal);
 typedef DownloadProgressCallback = void Function(
     int bytesDownloaded, int bytesTotal);
 
@@ -255,7 +255,7 @@ class HttpUtil {
         handleData: (data, sink) {
           sink.add(data);
           bytesUploaded += data.length;
-          onUploadProgress(multipartRequest, bytesUploaded, bytesTotal);
+          onUploadProgress(bytesUploaded, bytesTotal);
         },
         handleError: (error, stackTrace, sink) =>
             throw AsyncError(error, stackTrace),
@@ -294,6 +294,7 @@ class HttpUtil {
       Map<String, dynamic>? queryParameters,
       UploadProgressCallback? onUploadProgress,
       Map<String, String>? fields,
+      required String fileField,
       required List<XXMedia> files}) async {
     late Resp resp;
     generateXXClient();
@@ -306,7 +307,7 @@ class HttpUtil {
 
     multipartRequest.files.clear();
     multipartRequest.files.addAll(files.map((e) => MultipartFile(
-        e.mediaName,
+        fileField,
         File(e.mediaPath).readAsBytes().asStream(),
         File(e.mediaPath).lengthSync(),
         filename: e.mediaName.split("/").last)));
@@ -328,7 +329,7 @@ class HttpUtil {
         handleData: (data, sink) {
           sink.add(data);
           bytesUploaded += data.length;
-          onUploadProgress(multipartRequest, bytesUploaded, bytesTotal);
+          onUploadProgress(bytesUploaded, bytesTotal);
         },
         handleError: (error, stackTrace, sink) =>
             throw AsyncError(error, stackTrace),
@@ -347,10 +348,6 @@ class HttpUtil {
     try {
       response = await http.Response.fromStream(
           await xxHttpClient!.send(requestToSend));
-
-      //  final contentTypeHeader = response.headers['content-type'];
-      //  final isJson = contentTypeHeader?.startsWith("application/json") == true;
-      // dynamic responseBody = isJson ? jsonDecode(response.body) : response.body;
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
