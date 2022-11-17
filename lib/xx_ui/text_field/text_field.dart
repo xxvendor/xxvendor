@@ -49,6 +49,11 @@ class XXTextField extends StatelessWidget {
   final InputBorder? disabledBorder;
   final TextInputType? keyboardType;
   final GestureTapCallback? onTap;
+  final Widget? counter;
+  final int? maxLength;
+  final String? counterText;
+  final InputCounterWidgetBuilder? buildCounter;
+  final TextStyle? countStyle;
 
   const XXTextField(
       {Key? key,
@@ -98,7 +103,12 @@ class XXTextField extends StatelessWidget {
       this.focusedBorder,
       this.enableBorder,
       this.errorBorder,
-      this.disabledBorder})
+      this.disabledBorder,
+      this.counter,
+      this.maxLength,
+      this.counterText,
+      this.buildCounter,
+      this.countStyle})
       : super(key: key);
 
   @override
@@ -116,6 +126,7 @@ class XXTextField extends StatelessWidget {
       obscureText: obscureText,
       maxLines: maxLines,
       minLines: minLines,
+      maxLength: maxLength,
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
       onSubmitted: onSubmitted,
@@ -123,11 +134,15 @@ class XXTextField extends StatelessWidget {
       enabled: enabled,
       cursorWidth: cursorWidth,
       cursorHeight: cursorHeight,
-      cursorColor: cursorColor ?? Colors.orange,
+      cursorColor: cursorColor ?? const Color(0xffF76A2B),
       showCursor: showCursor,
       readOnly: readOnly,
       scrollPadding: scrollPadding,
+      buildCounter: buildCounter,
       decoration: InputDecoration(
+        counter: counter,
+        counterText: counterText,
+        counterStyle: countStyle,
         isCollapsed: isCollapsed,
         contentPadding: contentPadding,
         hintText: hintText,
@@ -150,7 +165,7 @@ class XXTextField extends StatelessWidget {
         border: border ?? InputBorder.none,
         enabledBorder: enableBorder ?? InputBorder.none,
         errorBorder: errorBorder ?? InputBorder.none,
-        disabledBorder: disabledBorder??InputBorder.none,
+        disabledBorder: disabledBorder ?? InputBorder.none,
       ),
     );
   }
