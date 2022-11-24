@@ -57,7 +57,12 @@ class XXImage extends StatelessWidget {
             height: height,
             fit: fit ?? BoxFit.contain,
             placeholderBuilder: (context) {
-              return placeholderBuilder ?? const SizedBox();
+              return placeholderBuilder ??
+                  Container(
+                    width: width,
+                    height: height,
+                    color: const Color(0xfff4f4f4),
+                  );
             },
           )
         : octoImageWidget(CachedNetworkImageProvider(imagePath,
@@ -75,7 +80,12 @@ class XXImage extends StatelessWidget {
             height: height,
             fit: fit ?? BoxFit.contain,
             placeholderBuilder: (context) {
-              return placeholderBuilder ?? const SizedBox();
+              return placeholderBuilder ??
+                  Container(
+                    width: width,
+                    height: height,
+                    color: const Color(0xfff4f4f4),
+                  );
             },
           )
         : octoImageWidget(FileImage(
@@ -94,7 +104,12 @@ class XXImage extends StatelessWidget {
             height: height,
             fit: fit ?? BoxFit.contain,
             placeholderBuilder: (context) {
-              return placeholderBuilder ?? const SizedBox();
+              return placeholderBuilder ??
+                  Container(
+                    width: width,
+                    height: height,
+                    color: const Color(0xfff4f4f4),
+                  );
             },
           )
         : octoImageWidget(AssetImage(imagePath));
@@ -108,11 +123,21 @@ class XXImage extends StatelessWidget {
       image: imageProvider,
       //progressIndicatorBuilder与placeholderBuilder，2选1
       placeholderBuilder: (context) {
-        return placeholderBuilder ?? const SizedBox();
+        return placeholderBuilder ??
+            Container(
+              width: width,
+              height: height,
+              color: const Color(0xfff4f4f4),
+            );
       },
       errorBuilder:
           (BuildContext context, Object error, StackTrace? stackTrace) {
-        return errorBuilder ?? Container();
+        return errorBuilder ??
+            Container(
+              width: width,
+              height: height,
+              color: const Color(0xfff4f4f4),
+            );
       },
       fit: fit,
     );
