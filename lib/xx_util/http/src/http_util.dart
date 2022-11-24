@@ -14,6 +14,7 @@ typedef UploadProgressCallback = void Function(
     int bytesUploaded, int bytesTotal);
 typedef DownloadProgressCallback = void Function(
     int bytesDownloaded, int bytesTotal);
+typedef DownloadSuccessCallback = void Function(File? file);
 
 class HttpUtil {
   static XXHttpClient? xxHttpClient;
@@ -291,7 +292,7 @@ class HttpUtil {
     return resp;
   }
 
-  ///upload 可能还有点问题
+  ///upload
   static Future<Resp> uploadFile(
       {required String url,
       Map<String, String>? headers,
@@ -356,7 +357,7 @@ class HttpUtil {
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
-    }  catch (e) {
+    } catch (e) {
       resp = Resp(code: "-1", msg: e.toString());
     } finally {
       xxHttpClient!.close();
@@ -366,13 +367,15 @@ class HttpUtil {
   }
 
   ///download
-  static Future<File?> downloadFile(
+  static Future downloadFile(
       {required String url,
       Map<String, String>? headers,
       RequestMethod requestMethod = RequestMethod.get,
       required String savePath,
-      required DownloadProgressCallback downloadProgressCallback}) async {
+      required DownloadProgressCallback downloadProgressCallback,
+      required DownloadSuccessCallback downloadSuccessCallback}) async {
     generateXXClient();
+
     File? file;
     late Uri uri;
 
@@ -409,6 +412,7 @@ class HttpUtil {
         if (kDebugMode) {
           print("重命名完成，文件下载成功,存储路径为:$savePath");
         }
+        downloadSuccessCallback(file);
       });
     } catch (e) {
       if (kDebugMode) {
@@ -417,7 +421,6 @@ class HttpUtil {
     } finally {
       xxHttpClient!.close();
     }
-    return file;
   }
 
   static setHeaders({required Map<String, String> headers}) {
