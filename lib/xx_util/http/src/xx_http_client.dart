@@ -16,10 +16,18 @@ class XXHttpClient extends BaseClient {
     }
 
     if (requestHeaders.isNotEmpty) {
+      if (headers != null && headers!.isNotEmpty) {
+        for (int i = 0; i < headers!.keys.length; i++) {
+          String key = headers!.keys.toList()[i];
+          if (!requestHeaders.containsKey(key)) {
+            requestHeaders[key] = headers![key] ?? "";
+          }
+        }
+      }
+
       allHeaders.clear();
       allHeaders.addAll(requestHeaders);
     }
-
 
     request.headers.addAll(allHeaders);
     return client.send(request);
