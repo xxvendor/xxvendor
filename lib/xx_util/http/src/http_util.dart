@@ -134,7 +134,16 @@ class HttpUtil {
           "\n${"response body:${jsonDecode(utf8.decode(response.bodyBytes))}"}"
           "\n${"--------------------------------------------------"}");
     } catch (e) {
-      LogUtils.i(e.toString());
+      LogUtils.e("--------------------------------------------------"
+          "\n${"request url:$url"}"
+          "\n${"requestMethod:${response.request?.method}"}"
+          "\n${"queryParameters:$queryParameters"}"
+          "\n${"headers:${response.request?.headers}"}"
+          "\n${"body:$body"}"
+          "\n${"formDataBody:$formDataBody"}"
+          "\n${"response code:${response.statusCode}"}"
+          "\n${"response body:${response.body}"}"
+          "\n${"--------------------------------------------------"}");
     }
 
     return response;
