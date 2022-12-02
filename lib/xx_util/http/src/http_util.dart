@@ -302,7 +302,7 @@ class HttpUtil {
   }
 
   ///upload
-  static Future<Resp> uploadFile(
+  static Future<Resp> uploadMultiFile(
       {required String url,
       Map<String, String>? headers,
       RequestMethod requestMethod = RequestMethod.post,

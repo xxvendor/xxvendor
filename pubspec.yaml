@@ -21,6 +21,7 @@ dependencies:
   http: ^0.13.5
   retry: ^3.1.0
   logger: ^1.1.0
+  pull_to_refresh: ^2.0.0
 
 
 dev_dependencies:
