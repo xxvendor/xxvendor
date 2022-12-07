@@ -23,11 +23,11 @@ typedef SeparatorBuilder = Widget Function(
 typedef OnRefresh = Future<Resp> Function();
 typedef OnLoadMore = Future<Resp> Function(int currentPage);
 
-class XXRefreshList extends StatefulWidget {
+class XXRefreshListView extends StatefulWidget {
   final OnRefresh onRefresh;
   final OnLoadMore onLoadMore;
   final ItemBuilder itemBuilder;
-  final SeparatorBuilder separatorBuilder;
+  final SeparatorBuilder? separatorBuilder;
   final EdgeInsetsGeometry padding;
   final int initIndexPage;
   final int initPageSize;
@@ -36,7 +36,7 @@ class XXRefreshList extends StatefulWidget {
   final Widget emptyWidget;
   final ScrollController? scrollController;
 
-  const XXRefreshList({
+  const XXRefreshListView({
     Key? key,
     this.padding = EdgeInsets.zero,
     required this.itemBuilder,
@@ -52,10 +52,10 @@ class XXRefreshList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<XXRefreshList> createState() => _XXRefreshListState();
+  State<XXRefreshListView> createState() => _XXRefreshListViewState();
 }
 
-class _XXRefreshListState extends State<XXRefreshList> with AfterLayoutMixin {
+class _XXRefreshListViewState extends State<XXRefreshListView> with AfterLayoutMixin {
   late RefreshListController refreshListController;
   late RefreshController refreshController;
   String refreshListControllerTag =
@@ -105,7 +105,9 @@ class _XXRefreshListState extends State<XXRefreshList> with AfterLayoutMixin {
                     },
                     itemCount: list.length,
                     separatorBuilder: (context, index) {
-                      return widget.separatorBuilder(context, index, list);
+                      return widget.separatorBuilder == null
+                          ? const SizedBox()
+                          : widget.separatorBuilder!(context, index, list);
                     },
                   ),
           );
