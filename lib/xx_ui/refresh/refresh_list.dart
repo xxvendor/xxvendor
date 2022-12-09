@@ -21,20 +21,23 @@ typedef SeparatorBuilder = Widget Function(
 );
 
 typedef OnRefresh = Future<Resp> Function();
+typedef OnRefreshFinished = Function();
 typedef OnLoadMore = Future<Resp> Function(int currentPage);
 
 class XXRefreshListView extends StatefulWidget {
   final OnRefresh onRefresh;
   final OnLoadMore onLoadMore;
+  final OnRefreshFinished? onRefreshFinished;
   final ItemBuilder itemBuilder;
   final SeparatorBuilder? separatorBuilder;
   final EdgeInsetsGeometry padding;
-  final int initIndexPage;
+  final int initPageIndex;
   final int initPageSize;
   final bool initRefresh;
   final Widget loadingWidget;
   final Widget emptyWidget;
   final ScrollController? scrollController;
+  final bool forceRefresh;
 
   const XXRefreshListView({
     Key? key,
@@ -43,12 +46,14 @@ class XXRefreshListView extends StatefulWidget {
     required this.separatorBuilder,
     required this.onRefresh,
     required this.onLoadMore,
-    this.initIndexPage = 1,
+    this.initPageIndex = 1,
     this.initPageSize = 20,
     this.initRefresh = true,
     this.emptyWidget = const SizedBox(),
     this.loadingWidget = const SizedBox(),
     this.scrollController,
+    this.forceRefresh = false,
+    this.onRefreshFinished,
   }) : super(key: key);
 
   @override
@@ -73,15 +78,22 @@ class _XXRefreshListViewState extends State<XXRefreshListView> with AfterLayoutM
 
   @override
   Widget build(BuildContext context) {
+    if (widget.forceRefresh) {
+      refreshListController.requestNewData(
+          widget.onRefresh, widget.initPageIndex);
+    }
     return GetBuilder<RefreshListController>(
         tag: refreshListControllerTag,
         builder: (controller) {
+          if (controller.isRefreshFinished) {
+            widget.onRefreshFinished;
+          }
           List list = controller.list;
           return SmartRefresher(
             enablePullUp: controller.canPullUp,
             controller: controller.refreshController,
             onRefresh: () {
-              controller.requestNewData(widget.onRefresh, widget.initIndexPage);
+              controller.requestNewData(widget.onRefresh, widget.initPageIndex);
             },
             onLoading: () {
               controller.requestMoreData(widget.onLoadMore);
@@ -117,7 +129,7 @@ class _XXRefreshListViewState extends State<XXRefreshListView> with AfterLayoutM
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
     refreshListController.requestNewData(
-        widget.onRefresh, widget.initIndexPage);
+        widget.onRefresh, widget.initPageIndex);
   }
 
   @override
@@ -152,6 +164,10 @@ class RefreshListController extends GetxController {
   RefreshListController(this.initPageSize, this.mShowLoading);
 
   RefreshController get refreshController => mRefreshController;
+
+  bool mIsRefreshFinished = false;
+
+  bool get isRefreshFinished => mIsRefreshFinished;
 
   initRefreshController(RefreshController refreshController) {
     mRefreshController = refreshController;
@@ -198,6 +214,7 @@ class RefreshListController extends GetxController {
     if (mShowLoading) {
       mShowLoading = !mShowLoading;
     }
+    mIsRefreshFinished = true;
 
     update();
   }

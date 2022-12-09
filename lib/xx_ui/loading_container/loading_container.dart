@@ -1,21 +1,22 @@
-
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 import '../../xx_vendor.dart';
 
-
-
 enum LoadingStatus { loading, success, failed }
 
 typedef SuccessWidget = Widget Function(dynamic data);
 typedef OnLoading = Future<Resp> Function();
+typedef OnLoadingFinished = Function();
 
-class XXLoadingContainer extends StatelessWidget {
+class XXLoadingContainer extends StatefulWidget {
   final SuccessWidget successWidget;
   final Widget failedWidget;
   final Widget loadingWidget;
   final OnLoading onLoading;
+  final bool forceRefresh;
+  final OnLoadingFinished? onLoadingFinished;
 
   const XXLoadingContainer({
     Key? key,
@@ -23,32 +24,48 @@ class XXLoadingContainer extends StatelessWidget {
     this.failedWidget = const SizedBox(),
     this.loadingWidget = const SizedBox(),
     required this.onLoading,
+    this.forceRefresh = false,
+    this.onLoadingFinished,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    String loadingContainerControllerTag =
-        DateTime.now().millisecondsSinceEpoch.toString();
-    LoadingContainerController loadingContainerController =
-        Get.put<LoadingContainerController>(LoadingContainerController());
+  State<XXLoadingContainer> createState() => _XXLoadingContainerState();
+}
 
-    loadingContainerController.loading(onLoading);
+class _XXLoadingContainerState extends State<XXLoadingContainer> with AfterLayoutMixin{
+  late LoadingContainerController loadingContainerController;
+  String loadingContainerControllerTag =
+      DateTime.now().millisecondsSinceEpoch.toString();
+
+  @override
+  void initState() {
+    super.initState();
+    loadingContainerController =
+        Get.put<LoadingContainerController>(LoadingContainerController());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    if (widget.forceRefresh) {
+      loadingContainerController.loading(widget.onLoading);
+    }
 
     Widget child(LoadingStatus loadingStatus, dynamic data) {
-      Widget widget = const SizedBox();
+      Widget childWidget = const SizedBox();
       switch (loadingStatus) {
         case LoadingStatus.loading:
-          widget = loadingWidget;
+          childWidget = widget.loadingWidget;
           break;
         case LoadingStatus.success:
-          widget = successWidget(data);
+          childWidget = widget.successWidget(data);
           break;
         case LoadingStatus.failed:
-          widget = XXInkWell(
+          childWidget = XXInkWell(
               onTap: () {
-                loadingContainerController.loading(onLoading);
+                loadingContainerController.loading(widget.onLoading);
               },
-              child: failedWidget);
+              child: widget.failedWidget);
           break;
       }
       return widget;
@@ -57,8 +74,17 @@ class XXLoadingContainer extends StatelessWidget {
     return GetBuilder<LoadingContainerController>(
         tag: loadingContainerControllerTag,
         builder: (controller) {
+          if (controller.isLoadingFinished) {
+            widget.onLoadingFinished;
+          }
           return child(controller.loadingStatus, controller.data);
         });
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    loadingContainerController.loading(widget.onLoading);
+
   }
 }
 
@@ -70,6 +96,9 @@ class LoadingContainerController extends GetxController {
   dynamic get data => mData;
 
   LoadingStatus get loadingStatus => mLoadingStatus;
+  bool mIsLoadingFinished = false;
+
+  bool get isLoadingFinished => mIsLoadingFinished;
 
   loading(OnLoading onLoading) async {
     Resp resp = await onLoading();
@@ -80,6 +109,7 @@ class LoadingContainerController extends GetxController {
     } else {
       mLoadingStatus = LoadingStatus.failed;
     }
+    mIsLoadingFinished = true;
     update();
   }
 }
