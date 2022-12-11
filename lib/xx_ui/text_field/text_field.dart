@@ -134,7 +134,7 @@ class XXTextField extends StatelessWidget {
       enabled: enabled,
       cursorWidth: cursorWidth,
       cursorHeight: cursorHeight,
-      cursorColor: cursorColor ?? const Color(0xffF76A2B),
+      cursorColor: cursorColor ?? Colors.black,
       showCursor: showCursor,
       readOnly: readOnly,
       scrollPadding: scrollPadding,
