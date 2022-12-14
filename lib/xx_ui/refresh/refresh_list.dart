@@ -60,7 +60,8 @@ class XXRefreshListView extends StatefulWidget {
   State<XXRefreshListView> createState() => _XXRefreshListViewState();
 }
 
-class _XXRefreshListViewState extends State<XXRefreshListView> with AfterLayoutMixin {
+class _XXRefreshListViewState extends State<XXRefreshListView>
+    with AfterLayoutMixin {
   late RefreshListController refreshListController;
   late RefreshController refreshController;
   String refreshListControllerTag =
@@ -76,18 +77,30 @@ class _XXRefreshListViewState extends State<XXRefreshListView> with AfterLayoutM
     refreshListController.initRefreshController(refreshController);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  forceRefresh() {
     if (widget.forceRefresh) {
       refreshListController.requestNewData(
           widget.onRefresh, widget.initPageIndex);
     }
+  }
+
+  forceRefreshFinished(bool isRefreshFinished) {
+    if (widget.forceRefresh) {
+      if (isRefreshFinished && widget.onRefreshFinished != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          widget.onRefreshFinished!();
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    forceRefresh();
     return GetBuilder<RefreshListController>(
         tag: refreshListControllerTag,
         builder: (controller) {
-          if (controller.isRefreshFinished) {
-            widget.onRefreshFinished;
-          }
+          forceRefreshFinished(controller.isRefreshFinished);
           List list = controller.list;
           return SmartRefresher(
             enablePullUp: controller.canPullUp,
