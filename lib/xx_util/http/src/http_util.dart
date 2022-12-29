@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -8,7 +9,6 @@ import 'package:http/http.dart';
 import 'package:retry/retry.dart';
 import 'package:xx_vendor/model/media/xx_media.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
-import 'package:xx_vendor/xx_util/log/log_util.dart';
 
 typedef UploadProgressCallback = void Function(
     int bytesUploaded, int bytesTotal);
@@ -123,7 +123,7 @@ class HttpUtil {
     }
 
     try {
-      LogUtils.i("--------------------------------------------------"
+      log("--------------------------------------------------"
           "\n${"request url:$url"}"
           "\n${"requestMethod:${response.request?.method}"}"
           "\n${"queryParameters:$queryParameters"}"
@@ -134,7 +134,7 @@ class HttpUtil {
           "\n${"response body:${jsonDecode(utf8.decode(response.bodyBytes))}"}"
           "\n${"--------------------------------------------------"}");
     } catch (e) {
-      LogUtils.e("--------------------------------------------------"
+      log("--------------------------------------------------"
           "\n${"request url:$url"}"
           "\n${"requestMethod:${response.request?.method}"}"
           "\n${"queryParameters:$queryParameters"}"
