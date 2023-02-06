@@ -4,8 +4,6 @@ import 'gradient_inkwell.dart';
 import 'ink_config.dart';
 import 'pure_color_inkwell.dart';
 
-
-
 export 'gradient_inkwell.dart';
 export 'ink_config.dart';
 export 'pure_color_inkwell.dart';
@@ -26,14 +24,14 @@ class XXInkWell extends StatelessWidget {
   final BorderRadius? borderRadius;
   final BorderSide? side;
   final Gradient? gradient;
-  final InkType inkType;
+
   final Color? disableColor;
   final Gradient? disableGradient;
   final bool enable;
 
   const XXInkWell({
     Key? key,
-    this.color=Colors.transparent,
+    this.color = Colors.transparent,
     this.onTap,
     required this.child,
     this.inkShape,
@@ -48,7 +46,6 @@ class XXInkWell extends StatelessWidget {
     this.radius,
     this.side,
     this.gradient,
-    this.inkType = InkType.solid,
     this.disableColor,
     this.disableGradient,
     this.enable = true,
@@ -56,7 +53,7 @@ class XXInkWell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return inkType == InkType.gradient
+    return gradient != null
         ? GradientInkWell(
             enable: enable,
             disableGradient: disableGradient,

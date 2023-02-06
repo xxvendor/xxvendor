@@ -88,12 +88,10 @@ class XXBottomNavigatorBar extends StatelessWidget {
 class XXBottomBarItem {
   final String icon;
   final String label;
-  final ImageStyle imageStyle;
   final int bubbleNum;
 
   XXBottomBarItem({
     required this.icon,
-    required this.imageStyle,
     required this.label,
     this.bubbleNum = 0,
   });

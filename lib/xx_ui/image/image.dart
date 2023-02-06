@@ -144,4 +144,4 @@ class XXImage extends StatelessWidget {
   }
 }
 
-enum ImageStyle { network, file, assets }
+

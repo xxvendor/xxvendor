@@ -1,13 +1,13 @@
 # This is a generated file; do not edit or check into version control.
-images_picker=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/images_picker-1.2.11/
-path_provider=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.0.11/
-path_provider_android=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_android-2.0.20/
-path_provider_ios=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/
-path_provider_linux=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.1.7/
-path_provider_macos=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_macos-2.0.6/
-path_provider_windows=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.1.3/
-permission_handler=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/permission_handler-9.2.0/
-permission_handler_android=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_android-9.0.2+1/
-permission_handler_apple=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.7/
-permission_handler_windows=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_windows-0.1.2/
-sqflite=/Users/kk/Desktop/develop/sdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.3+1/
+images_picker=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/images_picker-1.2.11/
+path_provider=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.0.11/
+path_provider_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_android-2.0.20/
+path_provider_ios=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_ios-2.0.11/
+path_provider_linux=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.1.7/
+path_provider_macos=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_macos-2.0.6/
+path_provider_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.1.3/
+permission_handler=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler-9.2.0/
+permission_handler_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_android-9.0.2+1/
+permission_handler_apple=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.0.7/
+permission_handler_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_windows-0.1.2/
+sqflite=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.0.3+1/
