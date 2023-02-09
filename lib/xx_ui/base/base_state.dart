@@ -14,23 +14,14 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
 
   VM createViewModel();
 
-  afterVMInit(VM vm){}
-
-  afterFirstLayoutBuild(BuildContext context, VM vm){}
+  afterFirstLayoutBuild(BuildContext context, VM vm) {}
 
   Widget widgetBuild(BuildContext context, VM vm);
-
-  bool keepAlive(){
-    return false;
-  }
-
-
 
   @override
   void initState() {
     super.initState();
     viewModel ??= createViewModel();
-    afterVMInit(viewModel!);
   }
 
   @override
@@ -43,9 +34,4 @@ abstract class BaseState<W extends StatefulWidget, VM extends BaseViewModel>
     super.build(context);
     return widgetBuild(context, viewModel!);
   }
-
-  @override
-  bool get wantKeepAlive => keepAlive();
-
-
 }

@@ -58,10 +58,9 @@ class XXImage extends StatelessWidget {
             fit: fit ?? BoxFit.contain,
             placeholderBuilder: (context) {
               return placeholderBuilder ??
-                  Container(
+                  SizedBox(
                     width: width,
                     height: height,
-                    color: const Color(0xfff4f4f4),
                   );
             },
           )
@@ -105,10 +104,9 @@ class XXImage extends StatelessWidget {
             fit: fit ?? BoxFit.contain,
             placeholderBuilder: (context) {
               return placeholderBuilder ??
-                  Container(
+                  SizedBox(
                     width: width,
                     height: height,
-                    color: const Color(0xfff4f4f4),
                   );
             },
           )
@@ -124,11 +122,16 @@ class XXImage extends StatelessWidget {
       //progressIndicatorBuilder与placeholderBuilder，2选1
       placeholderBuilder: (context) {
         return placeholderBuilder ??
-            Container(
+            (imagePath.startsWith("https://") || imagePath.startsWith("http://")
+                ? Container(
               width: width,
               height: height,
-              color: const Color(0xfff4f4f4),
-            );
+              color: const Color(0xffE8EAEF),
+            )
+                : SizedBox(
+              width: width,
+              height: height,
+            ));
       },
       errorBuilder:
           (BuildContext context, Object error, StackTrace? stackTrace) {
