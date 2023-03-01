@@ -126,23 +126,23 @@ class HttpUtil {
       log("--------------------------------------------------"
           "\n${"request url:$url"}"
           "\n${"requestMethod:${response.request?.method}"}"
-          "\n${"queryParameters:$queryParameters"}"
-          "\n${"headers:${response.request?.headers}"}"
-          "\n${"body:$body"}"
-          "\n${"formDataBody:$formDataBody"}"
+          "\n${"queryParameters:${json.encode(queryParameters)}"}"
+          "\n${"headers:${json.encode(response.request?.headers)}"}"
+          "\n${"body:${json.encode(body)}"}"
+          "\n${"formDataBody:${json.encode(formDataBody)}"}"
           "\n${"response code:${response.statusCode}"}"
-          "\n${"response body:${jsonDecode(utf8.decode(response.bodyBytes))}"}"
+          "\n${"response body:${json.encode(jsonDecode(utf8.decode(response.bodyBytes)))}"}"
           "\n${"--------------------------------------------------"}");
     } catch (e) {
       log("--------------------------------------------------"
           "\n${"request url:$url"}"
           "\n${"requestMethod:${response.request?.method}"}"
-          "\n${"queryParameters:$queryParameters"}"
-          "\n${"headers:${response.request?.headers}"}"
-          "\n${"body:$body"}"
-          "\n${"formDataBody:$formDataBody"}"
+          "\n${"queryParameters:${json.encode(queryParameters)}"}"
+          "\n${"headers:${json.encode(response.request?.headers)}"}"
+          "\n${"body:${json.encode(body)}"}"
+          "\n${"formDataBody:${json.encode(formDataBody)}"}"
           "\n${"response code:${response.statusCode}"}"
-          "\n${"response body:${response.body}"}"
+          "\n${"response body:${json.encode(response.body)}"}"
           "\n${"--------------------------------------------------"}");
     }
 

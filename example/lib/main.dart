@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
 
 void main() {
@@ -109,13 +105,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             MaterialButton(
                 child: const Text(
-                  "---",
+                  "request",
                   style: TextStyle(
                     color: Colors.blue,
                   ),
                 ),
                 onPressed: () async {
-
+                  HttpUtil.request(
+                      url: "http://www.izuohua.com/api/other/userDocument",
+                      queryParameters: {"type": "1"},
+                      requestMethod: RequestMethod.get);
                 })
           ],
         ),
