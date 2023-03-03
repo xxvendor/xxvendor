@@ -17,7 +17,7 @@ class XXTabBar extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? indicatorPadding;
   final EdgeInsets? labelPadding;
-
+  final ValueChanged<int>? onTap;
   const XXTabBar(
       {Key? key,
       required this.controller,
@@ -33,7 +33,7 @@ class XXTabBar extends StatelessWidget {
       this.unselectedLabelStyle,
       this.padding,
       this.indicatorPadding,
-      this.labelPadding})
+      this.labelPadding, this.onTap})
       : super(key: key);
 
   @override
@@ -55,6 +55,7 @@ class XXTabBar extends StatelessWidget {
         isScrollable: isScrollable ?? false,
         indicatorSize: indicatorSize ?? TabBarIndicatorSize.label,
         labelPadding: labelPadding,
+        onTap: onTap,
       ),
     );
   }
