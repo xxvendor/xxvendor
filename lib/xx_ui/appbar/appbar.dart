@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:xx_vendor/xx_ui/inkwell/inkwell.dart';
 
 class XXAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Widget? actions;
   final Widget leading;
   final GestureTapCallback? onLeadingTap;
+  final GestureTapCallback? onTap;
+  final GestureTapCallback? onDoubleTap;
   final Color? backgroundColor;
   final Color? navigatorColor;
   final EdgeInsetsGeometry? padding;
@@ -32,39 +35,45 @@ class XXAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.iconWidth,
     this.titleTextStyle,
     this.onLeadingTap,
+    this.onTap,
+    this.onDoubleTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: backgroundColor ?? Colors.white,
-      padding: padding ??
-          EdgeInsets.only(
-              left: 16, right: 16, top: MediaQuery.of(context).padding.top),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          showLeading == true
-              ? Positioned(left: 0, child: leading)
-              : const SizedBox(),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              title ?? "",
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: titleTextStyle ??
-                  const TextStyle(
-                      color: Color(0xff333333),
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "PingFang SC",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 16.0),
+    return XXInkWell(
+      onTap: onTap,
+      onDoubleTap: onDoubleTap,
+      child: Container(
+        color: backgroundColor ?? Colors.white,
+        padding: padding ??
+            EdgeInsets.only(
+                left: 16, right: 16, top: MediaQuery.of(context).padding.top),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            showLeading == true
+                ? Positioned(left: 0, child: leading)
+                : const SizedBox(),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                title ?? "",
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: titleTextStyle ??
+                    const TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "PingFang SC",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16.0),
+              ),
             ),
-          ),
-          Positioned(right: 0, child: actions ?? const SizedBox()),
-        ],
+            Positioned(right: 0, child: actions ?? const SizedBox()),
+          ],
+        ),
       ),
     );
   }
