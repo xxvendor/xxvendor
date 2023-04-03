@@ -8,6 +8,7 @@ export 'bottom_navigator_bar/bottom_navigator_bar.dart';
 export 'divide/divide.dart';
 export 'image/image.dart';
 export 'inkwell/inkwell.dart';
+export 'loading_container/xx_loading_container.dart';
 export 'marquee/marquee.dart';
 export 'rich_text/rich_text.dart';
 export 'shape/shape.dart';
