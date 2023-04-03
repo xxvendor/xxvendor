@@ -16,3 +16,4 @@ export 'swiper/xx_swiper.dart';
 export 'switch/switch.dart';
 export 'tab_bar/tab_bar.dart';
 export 'text_field/text_field.dart';
+export 'package:pull_to_refresh/pull_to_refresh.dart';
