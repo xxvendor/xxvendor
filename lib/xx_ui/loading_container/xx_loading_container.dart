@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-enum LoadingStatus { idle, loading, success, failed, noData }
+enum ContainerLoadingStatus { idle, loading, success, failed, noData }
 
 class XXLoadingContainer extends StatelessWidget {
-  final LoadingStatus loadingStatus;
+  final ContainerLoadingStatus loadingStatus;
   final Widget loadingWidget;
   final Widget failedWidget;
   final Widget noDataWidget;
@@ -25,19 +25,19 @@ class XXLoadingContainer extends StatelessWidget {
     Widget child = loadingWidget;
 
     switch (loadingStatus) {
-      case LoadingStatus.idle:
+      case ContainerLoadingStatus.idle:
         child = idleWidget ?? const SizedBox();
         break;
-      case LoadingStatus.loading:
+      case ContainerLoadingStatus.loading:
         child = loadingWidget;
         break;
-      case LoadingStatus.failed:
+      case ContainerLoadingStatus.failed:
         child = failedWidget;
         break;
-      case LoadingStatus.noData:
+      case ContainerLoadingStatus.noData:
         child = noDataWidget;
         break;
-      case LoadingStatus.success:
+      case ContainerLoadingStatus.success:
         child = succeedWidget;
         break;
     }
@@ -46,7 +46,7 @@ class XXLoadingContainer extends StatelessWidget {
 }
 
 Widget generateXXLoadingContainer(
-    {required LoadingStatus loadingStatus,
+    {required ContainerLoadingStatus loadingStatus,
     required Widget loadingWidget,
     required Widget failedWidget,
     required Widget noDataWidget,
@@ -55,19 +55,19 @@ Widget generateXXLoadingContainer(
   Widget child = loadingWidget;
 
   switch (loadingStatus) {
-    case LoadingStatus.idle:
+    case ContainerLoadingStatus.idle:
       child = idleWidget ?? const SizedBox();
       break;
-    case LoadingStatus.loading:
+    case ContainerLoadingStatus.loading:
       child = loadingWidget;
       break;
-    case LoadingStatus.failed:
+    case ContainerLoadingStatus.failed:
       child = failedWidget;
       break;
-    case LoadingStatus.noData:
+    case ContainerLoadingStatus.noData:
       child = noDataWidget;
       break;
-    case LoadingStatus.success:
+    case ContainerLoadingStatus.success:
       child = succeedWidget;
       break;
   }
