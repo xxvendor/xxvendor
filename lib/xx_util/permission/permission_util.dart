@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:permission_handler/permission_handler.dart';
+export 'package:permission_handler/permission_handler.dart';
 
 class XXPermissionUtil {
   static Future<bool> requestPermissions(
