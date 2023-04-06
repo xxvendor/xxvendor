@@ -27,15 +27,18 @@ class TestPage extends BaseStatelessWidget<TestController> {
 
   @override
   TestController createViewModel() {
-    TestController testController = Get.put<TestController>(TestController());
+    TestController testController =
+        Get.put<TestController>(TestController(), tag: "1");
     return testController;
   }
 
   @override
   Widget widgetBuild(BuildContext context, TestController vm) {
     return Scaffold(
-      body: XXGetBuilder<TestController>(
+      body: /* XXGetBuilder<TestController>(
+          // tag: "1",
           builder: (controller) {
+            print(controller);
             return Center(
               child: Column(
                 children: [
@@ -57,7 +60,31 @@ class TestPage extends BaseStatelessWidget<TestController> {
               ),
             );
           },
-          controller: vm),
+          controller: vm)*/
+          GetBuilder<TestController>(
+              tag: "1",
+              builder: (controller) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        "${controller.mCount}",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            int count = controller.mCount;
+                            controller.changeCount(count + 1);
+                          },
+                          icon: const Icon(Icons.add))
+                    ],
+                  ),
+                );
+              }),
     );
   }
 }
