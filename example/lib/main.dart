@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xx_vendor/xx_ui/base/base.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
 
 void main() {
@@ -14,19 +15,59 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const TestPage(),
     );
+  }
+}
+
+class TestPage extends BaseStatelessWidget<TestController> {
+  const TestPage({Key? key}) : super(key: key);
+
+  @override
+  TestController createViewModel() {
+    TestController testController = Get.put<TestController>(TestController());
+    return testController;
+  }
+
+  @override
+  Widget widgetBuild(BuildContext context, TestController vm) {
+    return Scaffold(
+      body: XXGetBuilder<TestController>(
+          builder: (controller) {
+            return Center(
+              child: Column(
+                children: [
+                  Text(
+                    "${controller.mCount}",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        int count = controller.mCount;
+                        controller.changeCount(count + 1);
+                      },
+                      icon: const Icon(Icons.add))
+                ],
+              ),
+            );
+          },
+          controller: vm),
+    );
+  }
+}
+
+class TestController extends BaseViewModel {
+  int mCount = 0;
+
+  changeCount(int count) {
+    mCount = count;
+    update();
   }
 }
 
