@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xx_vendor/xx_ui/base/base.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
