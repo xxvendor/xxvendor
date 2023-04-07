@@ -9,7 +9,7 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
   @override
   MvvmViewModel createViewModel() {
     MvvmViewModel mvvmViewModel =
-        Get.put<MvvmViewModel>(MvvmViewModel(MvvmModel()));
+        Get.put<MvvmViewModel>(MvvmViewModel(this, MvvmModel()));
     return mvvmViewModel;
   }
 
@@ -39,6 +39,10 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
       }),
     );
   }
+
+  printLog(String data) {
+    print(data);
+  }
 }
 
 class MvvmModel extends BaseModel {
@@ -51,13 +55,14 @@ class MvvmModel extends BaseModel {
   }
 }
 
-class MvvmViewModel extends BaseViewModel<MvvmModel> {
-  MvvmViewModel(super.model);
+class MvvmViewModel extends BaseViewModel<MvvmPage, MvvmModel> {
+  MvvmViewModel(super.model, super.widget);
 
   int get count => model.count;
 
   addCount() {
     model.addCount();
     update();
+    widget.printLog(count.toString());
   }
 }
