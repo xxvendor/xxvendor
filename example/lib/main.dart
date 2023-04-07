@@ -1,3 +1,4 @@
+import 'package:example/mvvm_page.dart';
 import 'package:flutter/material.dart';
 import 'package:xx_vendor/xx_ui/base/base.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
@@ -13,89 +14,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TestPage(),
+      home: MyHomePage(
+        title: '',
+      ),
     );
-  }
-}
-
-class TestPage extends BaseStatelessWidget<TestController> {
-  const TestPage({Key? key}) : super(key: key);
-
-  @override
-  TestController createViewModel() {
-    TestController testController =
-        Get.put<TestController>(TestController(), tag: "1");
-    return testController;
-  }
-
-  @override
-  Widget widgetBuild(BuildContext context, TestController vm) {
-    return Scaffold(
-      body: /* XXGetBuilder<TestController>(
-          // tag: "1",
-          builder: (controller) {
-            print(controller);
-            return Center(
-              child: Column(
-                children: [
-                  Text(
-                    "${controller.mCount}",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        int count = controller.mCount;
-                        controller.changeCount(count + 1);
-                      },
-                      icon: const Icon(Icons.add))
-                ],
-              ),
-            );
-          },
-          controller: vm)*/
-          GetBuilder<TestController>(
-              tag: "1",
-              builder: (controller) {
-                return Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "${controller.mCount}",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            int count = controller.mCount;
-                            controller.changeCount(count + 1);
-                          },
-                          icon: const Icon(Icons.add))
-                    ],
-                  ),
-                );
-              }),
-    );
-  }
-}
-
-class TestController extends BaseViewModel {
-  int mCount = 0;
-
-  changeCount(int count) {
-    mCount = count;
-    update();
   }
 }
 
@@ -180,10 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  HttpUtil.request(
-                      url: "http://www.izuohua.com/api/other/userDocument",
-                      queryParameters: {"type": "1"},
-                      requestMethod: RequestMethod.get);
+                  Get.to(() => MvvmPage());
                 })
           ],
         ),
