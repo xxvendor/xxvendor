@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:xx_vendor/xx_ui/base/base.dart';
 import 'package:xx_vendor/xx_ui/base/base_model.dart';
+import 'package:xx_vendor/xx_util/dialog/dialog_util.dart';
 
 class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
   const MvvmPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
   @override
   MvvmViewModel createViewModel() {
     MvvmViewModel mvvmViewModel =
-        Get.put<MvvmViewModel>(MvvmViewModel(this, MvvmModel()));
+        Get.put<MvvmViewModel>(MvvmViewModel(widget: this, model: MvvmModel()));
     return mvvmViewModel;
   }
 
@@ -30,9 +31,9 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
               ),
               IconButton(
                   onPressed: () {
-                    controller.addCount();
+                    controller.addCount(context);
                   },
-                  icon: const Icon(Icons.add))
+                  icon: const Icon(Icons.add)),
             ],
           ),
         );
@@ -42,6 +43,10 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
 
   printLog(String data) {
     print(data);
+  }
+
+  showCenterTipDialog({required BuildContext context, required String title}) {
+    DialogUtil.showCenterTipDialog(context: context, title: title);
   }
 }
 
@@ -56,13 +61,17 @@ class MvvmModel extends BaseModel {
 }
 
 class MvvmViewModel extends BaseViewModel<MvvmPage, MvvmModel> {
-  MvvmViewModel(super.model, super.widget);
+  MvvmViewModel({required super.widget, required super.model});
 
   int get count => model.count;
 
-  addCount() {
+  addCount(BuildContext context) {
     model.addCount();
     update();
     widget.printLog(count.toString());
+
+    if (count == 5) {
+      widget.showCenterTipDialog(context: context, title: "$count");
+    }
   }
 }
