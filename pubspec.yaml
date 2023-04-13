@@ -11,13 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   octo_image: ^1.0.2
-  cached_network_image: ^3.2.1
-  flutter_svg: ^1.1.4
-  flutter_screenutil: ^5.5.3+2
+  cached_network_image: ^3.2.3
+  flutter_svg: ^2.0.5
+  flutter_screenutil: ^5.6.1
   get: ^4.6.5
   shimmer: ^2.0.0
   images_picker: ^1.2.4
-  permission_handler: ^9.2.0
+  permission_handler: ^10.2.0
   http: ^0.13.5
   retry: ^3.1.0
   logger: ^1.1.0

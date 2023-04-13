@@ -51,22 +51,20 @@ class MvvmPage extends BaseStatelessWidget<MvvmViewModel> {
 }
 
 class MvvmModel extends BaseModel {
-  int mCount = 0;
-
-  int get count => mCount;
-
-  addCount() {
-    mCount = mCount + 1;
+  int addCount(int rawCount) {
+    return rawCount + 1;
   }
 }
 
 class MvvmViewModel extends BaseViewModel<MvvmPage, MvvmModel> {
   MvvmViewModel({required super.widget, required super.model});
 
-  int get count => model.count;
+  int mCount = 0;
+
+  int get count => mCount;
 
   addCount(BuildContext context) {
-    model.addCount();
+    mCount = model.addCount(mCount);
     update();
     widget.printLog(count.toString());
 
