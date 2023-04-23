@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_manager/photo_manager.dart';
+
 export 'package:permission_handler/permission_handler.dart';
 
 class XXPermissionUtil {
@@ -29,14 +31,8 @@ class XXPermissionUtil {
   }
 
   static Future<bool> requestCameraPermissions() async {
-    return Platform.isAndroid
-        ? await requestPermissions(permissionList: [
-            Permission.storage,
-            Permission.camera,
-            Permission.microphone,
-            Permission.photos,
-          ])
-        : true;
+    final PermissionState ps = await PhotoManager.requestPermissionExtend();
+    return Platform.isAndroid ? ps.isAuth : true;
   }
 
   static Future<bool> requestLocationPermissions() async {

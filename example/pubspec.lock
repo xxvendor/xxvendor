@@ -379,6 +379,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
+  photo_manager:
+    dependency: transitive
+    description:
+      name: photo_manager
+      sha256: bdc4ab1fa9fb064d8ccfea6ab44119f55b220293d7ce2e19eb5a5f998db86c88
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.6.0"
   platform:
     dependency: transitive
     description:

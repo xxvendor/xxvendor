@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xx_vendor/xx_ui/base/base.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
 import 'package:get/get.dart';
+import 'package:xx_vendor/xx_util/log/log_util.dart';
 
 void main() {
   runApp(const MyApp());
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  Get.to(() => MvvmPage());
+                  LogUtils.e(GetUtils.isEmail("758124607@qq.com"));
                 })
           ],
         ),
