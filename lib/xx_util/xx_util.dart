@@ -4,3 +4,4 @@ export 'permission/permission_util.dart';
 export 'screen/screen_util.dart';
 export 'http/http.dart';
 export 'log/log_util.dart';
+export 'dialog/dialog_util.dart';
