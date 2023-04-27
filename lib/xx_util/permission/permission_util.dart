@@ -39,8 +39,6 @@ class XXPermissionUtil {
     return Platform.isAndroid
         ? await requestPermissions(permissionList: [
             Permission.location,
-            Permission.locationAlways,
-            Permission.locationWhenInUse,
           ])
         : true;
   }
