@@ -1,6 +1,7 @@
 import 'package:example/mvvm_page.dart';
 import 'package:flutter/material.dart';
 import 'package:xx_vendor/xx_ui/base/base.dart';
+import 'package:xx_vendor/xx_ui/picker/image_picker/image_picker.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
 import 'package:get/get.dart';
 import 'package:xx_vendor/xx_util/log/log_util.dart';
@@ -108,7 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  LogUtils.e(GetUtils.isEmail("758124607@qq.com"));
+                  XXImagePicker.show(
+                      onNoPermissionCallback: () {}, context: context,pickType: PickType.all);
                 })
           ],
         ),
