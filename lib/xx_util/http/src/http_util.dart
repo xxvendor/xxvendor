@@ -9,7 +9,6 @@ import 'package:retry/retry.dart';
 import 'package:xx_vendor/model/media/xx_media.dart';
 import 'package:xx_vendor/xx_util/http/http.dart';
 
-
 typedef UploadProgressCallback = void Function(
     int bytesUploaded, int bytesTotal);
 typedef DownloadProgressCallback = void Function(
@@ -69,6 +68,53 @@ class HttpUtil {
     }
 
     return resp;
+  }
+
+  static Future<Response?> requestRaw({
+    required String url,
+    RequestMethod requestMethod = RequestMethod.post,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+    Object? body,
+    Map<String, String>? formDataBody,
+    bool needRetry = false,
+    int maxAttempts = 0,
+    Encoding encoding = const Utf8Codec(),
+    FutureOr<bool> Function(Exception)? retryIf,
+    FutureOr<void> Function(Exception)? onRetry,
+  }) async {
+    generateXXClient();
+
+    Response? response;
+    try {
+      response = needRetry
+          ? await retry(
+              () => httpRequest(
+                  url: url,
+                  requestMethod: requestMethod,
+                  queryParameters: queryParameters,
+                  headers: headers,
+                  body: body,
+                  formDataBody: formDataBody,
+                  encoding: encoding),
+              maxAttempts: maxAttempts,
+              retryIf: retryIf,
+              onRetry: onRetry)
+          : await httpRequest(
+              url: url,
+              requestMethod: requestMethod,
+              queryParameters: queryParameters,
+              headers: headers,
+              body: body,
+              formDataBody: formDataBody,
+              encoding: encoding);
+    } catch (e) {
+      response = null;
+    } finally {
+      xxHttpClient!.close();
+    }
+
+    return response;
   }
 
   static Future<Response?> requestBodyBytes({
