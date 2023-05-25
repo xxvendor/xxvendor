@@ -32,22 +32,9 @@ class XXPermissionUtil {
 
   static Future<bool> requestCameraPermissions() async {
     final PermissionState ps = await PhotoManager.requestPermissionExtend();
-    return Platform.isAndroid ? ps.isAuth : true;
+    return  ps.isAuth;
   }
 
-  static Future<bool> requestLocationPermissions() async {
-    return Platform.isAndroid
-        ? await requestPermissions(permissionList: [
-            Permission.location,
-          ])
-        : true;
-  }
 
-  static Future<bool> requestPhoneStatusPermissions() async {
-    return Platform.isAndroid
-        ? await requestPermissions(permissionList: [
-            Permission.phone,
-          ])
-        : true;
-  }
+
 }
