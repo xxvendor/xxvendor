@@ -1,4 +1,5 @@
 export 'package:images_picker/images_picker.dart';
+export 'package:pull_to_refresh/pull_to_refresh.dart';
 export 'package:shimmer/shimmer.dart';
 
 export 'after_layout/after_layout.dart';
@@ -16,4 +17,4 @@ export 'swiper/xx_swiper.dart';
 export 'switch/switch.dart';
 export 'tab_bar/tab_bar.dart';
 export 'text_field/text_field.dart';
-export 'package:pull_to_refresh/pull_to_refresh.dart';
+export 'text_field/text_input_area.dart';
