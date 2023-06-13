@@ -121,7 +121,12 @@ class XXTextField extends StatelessWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       textInputAction: textInputAction,
-      style: style,
+      style: style ??
+          const TextStyle(
+              color: Color(0xff333333),
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              height: 1.47),
       autofocus: autoFocus,
       obscureText: obscureText,
       maxLines: maxLines,
@@ -146,7 +151,12 @@ class XXTextField extends StatelessWidget {
         isCollapsed: isCollapsed,
         contentPadding: contentPadding,
         hintText: hintText,
-        hintStyle: hintStyle,
+        hintStyle: hintStyle ??
+            const TextStyle(
+                color: Color(0xffC5C5C5),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                height: 1.47),
         /* prefix: prefix,
         suffix: suffix,*/
         suffixIcon: suffixIcon,
