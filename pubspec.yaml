@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   octo_image: ^1.0.2
   cached_network_image: ^3.2.3
-  flutter_svg: 2.0.5
+  flutter_svg: ^2.0.6
   get: ^4.6.5
   shimmer: ^2.0.0
   images_picker: ^1.2.4
