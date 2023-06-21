@@ -18,7 +18,7 @@ typedef DownloadSuccessCallback = void Function(File? file);
 class HttpUtil {
   static XXHttpClient? xxHttpClient;
   static const Duration timeOutDuration = Duration(seconds: 30);
-  static const int multipartChunkSize = 64 * 1024 * 1024;
+  static const int multipartChunkSize = 64 * 1024 ;
 
   static Future<Resp> request({
     required String url,
