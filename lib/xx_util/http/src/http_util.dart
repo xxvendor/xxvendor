@@ -18,7 +18,7 @@ typedef DownloadSuccessCallback = void Function(File? file);
 class HttpUtil {
   static XXHttpClient? xxHttpClient;
   static const Duration timeOutDuration = Duration(seconds: 30);
-  static const int multipartChunkSize = 64 * 1024;
+  static const int multipartChunkSize = 64 * 1024 * 1024;
 
   static Future<Resp> request({
     required String url,
@@ -381,7 +381,8 @@ class HttpUtil {
     late Response response;
     try {
       response = await http.Response.fromStream(
-          await xxHttpClient!.send(requestToSend));
+              await xxHttpClient!.send(requestToSend))
+          .timeout(const Duration(days: 365));
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
@@ -455,7 +456,8 @@ class HttpUtil {
     late Response response;
     try {
       response = await http.Response.fromStream(
-          await xxHttpClient!.send(requestToSend));
+              await xxHttpClient!.send(requestToSend))
+          .timeout(const Duration(days: 365));
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
@@ -493,8 +495,9 @@ class HttpUtil {
       downloadRequest.headers.clear();
       downloadRequest.headers.addAll(headers ?? {});
 
-      http.StreamedResponse response =
-          await xxHttpClient!.send(downloadRequest);
+      http.StreamedResponse response = await xxHttpClient!
+          .send(downloadRequest)
+          .timeout(const Duration(days: 365));
 
       int total = response.contentLength ?? 0;
       int received = 0;
