@@ -380,8 +380,9 @@ class HttpUtil {
 
     late Response response;
     try {
-      response = await http.Response.fromStream(
-          await xxHttpClient!.send(requestToSend));
+      response = await http.Response.fromStream(await xxHttpClient!
+          .send(requestToSend)
+          .timeout(const Duration(days: 365)));
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
@@ -455,7 +456,7 @@ class HttpUtil {
     late Response response;
     try {
       response = await http.Response.fromStream(
-          await xxHttpClient!.send(requestToSend));
+          await xxHttpClient!.send(requestToSend).timeout(const Duration(days: 365)));
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
@@ -493,8 +494,9 @@ class HttpUtil {
       downloadRequest.headers.clear();
       downloadRequest.headers.addAll(headers ?? {});
 
-      http.StreamedResponse response =
-          await xxHttpClient!.send(downloadRequest);
+      http.StreamedResponse response = await xxHttpClient!
+          .send(downloadRequest)
+          .timeout(const Duration(days: 365));
 
       int total = response.contentLength ?? 0;
       int received = 0;
