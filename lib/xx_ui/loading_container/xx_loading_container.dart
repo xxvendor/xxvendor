@@ -2,15 +2,13 @@ import 'package:flutter/cupertino.dart';
 
 enum ContainerLoadingStatus { idle, loading, success, failed, noData }
 
-
-
 Widget generateXXLoadingContainer(
     {required ContainerLoadingStatus loadingStatus,
-    required Widget loadingWidget,
-    required Widget failedWidget,
-    required Widget noDataWidget,
+    Widget loadingWidget = const SizedBox(),
+    Widget failedWidget = const SizedBox(),
+    Widget noDataWidget = const SizedBox(),
     required Widget succeedWidget,
-    Widget? idleWidget}) {
+    Widget idleWidget = const SizedBox()}) {
   Widget child = loadingWidget;
 
   switch (loadingStatus) {
