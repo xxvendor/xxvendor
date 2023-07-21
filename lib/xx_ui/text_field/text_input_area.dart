@@ -78,31 +78,31 @@ class _XXTextInputAreaState extends State<XXTextInputArea> {
           border: widget.border ??
               Border.all(color: const Color(0xffc4c4c4), width: 0.5),
           borderRadius: widget.borderRadius ??
-              BorderRadius.all(
-                Radius.circular(scale(2)),
+              const BorderRadius.all(
+                Radius.circular(2),
               ),
           color: widget.color),
       child: XXTextField(
         controller: textEditingController,
-        contentPadding: EdgeInsets.only(
-          left: scale(12),
-          right: scale(12),
-          top: scale(10),
+        contentPadding: const EdgeInsets.only(
+          left: 12,
+          right: 12,
+          top: 10,
         ),
         focusNode: widget.focusNode,
         onChanged: (value) {
           widget.onChanged(value);
         },
         style: widget.textStyle ??
-            TextStyle(
-                color: const Color(0xff333333),
-                fontSize: font(15),
+            const TextStyle(
+                color: Color(0xff333333),
+                fontSize: 15,
                 fontWeight: FontWeight.w400,
                 height: 1.47),
         hintStyle: widget.hintTextStyle ??
-            TextStyle(
-                color: const Color(0xffC5C5C5),
-                fontSize: font(15),
+            const TextStyle(
+                color: Color(0xffC5C5C5),
+                fontSize: 15,
                 fontWeight: FontWeight.w400,
                 height: 1.47),
         hintText: widget.hintText ?? "请详细描述您遇到的问题，建议附上截图，帮助我们更快定位您的问题",
@@ -113,9 +113,9 @@ class _XXTextInputAreaState extends State<XXTextInputArea> {
             required int? maxLength,
             required bool isFocused}) {
           return Container(
-            height: scale(18),
+            height: 18,
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.only(bottom: scale(6.0)),
+            padding: const EdgeInsets.only(bottom: 6.0),
             transform: Matrix4.translationValues(0, -8, 0),
             child: Text(
               "$currentLength/$maxLength",
@@ -123,7 +123,7 @@ class _XXTextInputAreaState extends State<XXTextInputArea> {
                 color: currentLength >= widget.maxLength
                     ? Colors.red
                     : const Color(0xff666666),
-                fontSize: font(12),
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
             ),

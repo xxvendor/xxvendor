@@ -19,15 +19,6 @@ initScreenUtil({
   );
 }
 
-///按照屏幕宽缩放
-double scale(num width) {
-  return ScreenUtil().setWidth(width);
-}
-
-///字体适配
-double font(num fontSize) {
-  return ScreenUtil().setSp(fontSize);
-}
 
 ///屏幕宽度
 double getScreenWidth() {
