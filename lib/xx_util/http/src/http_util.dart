@@ -32,6 +32,7 @@ class HttpUtil {
     Encoding encoding = const Utf8Codec(),
     FutureOr<bool> Function(Exception)? retryIf,
     FutureOr<void> Function(Exception)? onRetry,
+    bool showLog = true,
   }) async {
     generateXXClient();
 
@@ -46,7 +47,8 @@ class HttpUtil {
                   headers: headers,
                   body: body,
                   formDataBody: formDataBody,
-                  encoding: encoding),
+                  encoding: encoding,
+                  showLog: showLog),
               maxAttempts: maxAttempts,
               retryIf: retryIf,
               onRetry: onRetry)
@@ -57,7 +59,8 @@ class HttpUtil {
               headers: headers,
               body: body,
               formDataBody: formDataBody,
-              encoding: encoding);
+              encoding: encoding,
+              showLog: showLog);
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
@@ -82,6 +85,7 @@ class HttpUtil {
     Encoding encoding = const Utf8Codec(),
     FutureOr<bool> Function(Exception)? retryIf,
     FutureOr<void> Function(Exception)? onRetry,
+    bool showLog = true,
   }) async {
     generateXXClient();
 
@@ -96,10 +100,12 @@ class HttpUtil {
                   headers: headers,
                   body: body,
                   formDataBody: formDataBody,
-                  encoding: encoding),
+                  encoding: encoding,
+                  showLog: showLog),
               maxAttempts: maxAttempts,
               retryIf: retryIf,
-              onRetry: onRetry)
+              onRetry: onRetry,
+            )
           : await httpRequest(
               url: url,
               requestMethod: requestMethod,
@@ -107,7 +113,8 @@ class HttpUtil {
               headers: headers,
               body: body,
               formDataBody: formDataBody,
-              encoding: encoding);
+              encoding: encoding,
+              showLog: showLog);
     } catch (e) {
       response = null;
     } finally {
@@ -129,6 +136,7 @@ class HttpUtil {
     Encoding encoding = const Utf8Codec(),
     FutureOr<bool> Function(Exception)? retryIf,
     FutureOr<void> Function(Exception)? onRetry,
+    bool showLog = true,
   }) async {
     generateXXClient();
     Response? response;
@@ -143,7 +151,8 @@ class HttpUtil {
                   headers: headers,
                   body: body,
                   formDataBody: formDataBody,
-                  encoding: encoding),
+                  encoding: encoding,
+                  showLog: showLog),
               maxAttempts: maxAttempts,
               retryIf: retryIf,
               onRetry: onRetry)
@@ -154,7 +163,8 @@ class HttpUtil {
               headers: headers,
               body: body,
               formDataBody: formDataBody,
-              encoding: encoding);
+              encoding: encoding,
+              showLog: showLog);
     } catch (e) {
       response = null;
     } finally {
@@ -172,6 +182,7 @@ class HttpUtil {
     Object? body,
     Map<String, String>? formDataBody,
     Encoding? encoding,
+    bool showLog = true,
   }) async {
     Uri uri = generateUri(url: url, queryParameters: queryParameters);
 
@@ -215,28 +226,30 @@ class HttpUtil {
       );
     }
 
-    try {
-      log("--------------------------------------------------"
-          "\n${"request url:$url"}"
-          "\n${"requestMethod:${response.request?.method}"}"
-          "\n${"queryParameters:${json.encode(queryParameters)}"}"
-          "\n${"headers:${json.encode(response.request?.headers)}"}"
-          "\n${"body:${json.encode(body)}"}"
-          "\n${"formDataBody:${json.encode(formDataBody)}"}"
-          "\n${"response code:${response.statusCode}"}"
-          "\n${"response body:${json.encode(jsonDecode(utf8.decode(response.bodyBytes)))}"}"
-          "\n${"--------------------------------------------------"}");
-    } catch (e) {
-      log("--------------------------------------------------"
-          "\n${"request url:$url"}"
-          "\n${"requestMethod:${response.request?.method}"}"
-          "\n${"queryParameters:${json.encode(queryParameters)}"}"
-          "\n${"headers:${json.encode(response.request?.headers)}"}"
-          "\n${"body:${json.encode(body)}"}"
-          "\n${"formDataBody:${json.encode(formDataBody)}"}"
-          "\n${"response code:${response.statusCode}"}"
-          "\n${"response body:${json.encode(response.body)}"}"
-          "\n${"--------------------------------------------------"}");
+    if (showLog) {
+      try {
+        log("--------------------------------------------------"
+            "\n${"request url:$url"}"
+            "\n${"requestMethod:${response.request?.method}"}"
+            "\n${"queryParameters:${json.encode(queryParameters)}"}"
+            "\n${"headers:${json.encode(response.request?.headers)}"}"
+            "\n${"body:${json.encode(body)}"}"
+            "\n${"formDataBody:${json.encode(formDataBody)}"}"
+            "\n${"response code:${response.statusCode}"}"
+            "\n${"response body:${json.encode(jsonDecode(utf8.decode(response.bodyBytes)))}"}"
+            "\n${"--------------------------------------------------"}");
+      } catch (e) {
+        log("--------------------------------------------------"
+            "\n${"request url:$url"}"
+            "\n${"requestMethod:${response.request?.method}"}"
+            "\n${"queryParameters:${json.encode(queryParameters)}"}"
+            "\n${"headers:${json.encode(response.request?.headers)}"}"
+            "\n${"body:${json.encode(body)}"}"
+            "\n${"formDataBody:${json.encode(formDataBody)}"}"
+            "\n${"response code:${response.statusCode}"}"
+            "\n${"response body:${json.encode(response.body)}"}"
+            "\n${"--------------------------------------------------"}");
+      }
     }
 
     return response;
@@ -455,8 +468,9 @@ class HttpUtil {
 
     late Response response;
     try {
-      response = await http.Response.fromStream(
-          await xxHttpClient!.send(requestToSend).timeout(const Duration(days: 365)));
+      response = await http.Response.fromStream(await xxHttpClient!
+          .send(requestToSend)
+          .timeout(const Duration(days: 365)));
       var decodedResponse =
           jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       resp = Resp.fromJson(decodedResponse);
