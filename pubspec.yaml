@@ -17,12 +17,13 @@ dependencies:
   shimmer: ^2.0.0
   images_picker: ^1.2.4
   permission_handler: ^10.2.0
-  http: ^0.13.5
+  http: ^1.1.0
   retry: ^3.1.0
   logger: ^1.1.0
   pull_to_refresh: ^2.0.0
   photo_manager: ^2.6.0
   flutter_screenutil: ^5.8.4
+
 
 
 dev_dependencies:

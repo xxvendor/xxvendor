@@ -1,13 +1,13 @@
 # This is a generated file; do not edit or check into version control.
 images_picker=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/images_picker-1.2.11/
-path_provider=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.0.15/
-path_provider_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_android-2.0.27/
-path_provider_foundation=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_foundation-2.2.3/
-path_provider_linux=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.1.11/
-path_provider_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.1.7/
-permission_handler=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler-10.3.0/
-permission_handler_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_android-10.2.3/
-permission_handler_apple=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.1.0/
-permission_handler_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_windows-0.1.2/
-photo_manager=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/photo_manager-2.6.0/
-sqflite=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.2.8+4/
+path_provider=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider-2.1.0/
+path_provider_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_android-2.1.0/
+path_provider_foundation=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_foundation-2.3.0/
+path_provider_linux=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-2.2.0/
+path_provider_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/path_provider_windows-2.2.0/
+permission_handler=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler-10.4.3/
+permission_handler_android=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_android-10.3.3/
+permission_handler_apple=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.1.4/
+permission_handler_windows=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_windows-0.1.3/
+photo_manager=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/photo_manager-2.7.1/
+sqflite=/Users/kk/.pub-cache/hosted/pub.flutter-io.cn/sqflite-2.3.0/

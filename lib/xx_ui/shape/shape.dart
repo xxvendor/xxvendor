@@ -20,7 +20,7 @@ class XXShape extends StatelessWidget {
         );
       } else {
         widget = ClipRRect(
-          borderRadius: borderRadius,
+          borderRadius: borderRadius??BorderRadius.zero,
           child: child,
         );
       }
