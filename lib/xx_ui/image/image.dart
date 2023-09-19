@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:octo_image/octo_image.dart';
 class XXImage extends StatelessWidget {
   final String imagePath;
   final BoxFit? fit;
+  final Uint8List? uint8List;
   final Color? color;
   final double? width;
   final double? height;
@@ -19,7 +21,7 @@ class XXImage extends StatelessWidget {
 
   const XXImage({
     Key? key,
-    required this.imagePath,
+    this.imagePath="",
     this.fit = BoxFit.contain,
     this.width,
     this.height,
@@ -29,20 +31,25 @@ class XXImage extends StatelessWidget {
     this.placeholderBuilder,
     this.errorBuilder,
     this.color,
+    this.uint8List,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    if (imagePath.startsWith("https://") || imagePath.startsWith("http://")) {
-      //networkImage
-      widget = networkImageWidget(enableSvg: imagePath.endsWith(".svg"));
-    } else if (imagePath.startsWith("assets/")) {
-      //assetsImage
-      widget = assetsImageWidget(enableSvg: imagePath.endsWith(".svg"));
+    if (uint8List != null) {
+      widget = thumbDataImageWidget();
     } else {
-      //文件图片
-      widget = fileImageWidget(enableSvg: imagePath.endsWith(".svg"));
+      if (imagePath.startsWith("https://") || imagePath.startsWith("http://")) {
+        //networkImage
+        widget = networkImageWidget(enableSvg: imagePath.endsWith(".svg"));
+      } else if (imagePath.startsWith("assets/")) {
+        //assetsImage
+        widget = assetsImageWidget(enableSvg: imagePath.endsWith(".svg"));
+      } else {
+        //文件图片
+        widget = fileImageWidget(enableSvg: imagePath.endsWith(".svg"));
+      }
     }
 
     return widget;
@@ -113,6 +120,10 @@ class XXImage extends StatelessWidget {
         : octoImageWidget(AssetImage(imagePath));
   }
 
+  Widget thumbDataImageWidget() {
+    return octoImageWidget(MemoryImage(uint8List!));
+  }
+
   Widget octoImageWidget(ImageProvider imageProvider) {
     return OctoImage(
       width: (size == 0 || size == null) ? width : size,
@@ -124,14 +135,14 @@ class XXImage extends StatelessWidget {
         return placeholderBuilder ??
             (imagePath.startsWith("https://") || imagePath.startsWith("http://")
                 ? Container(
-              width: width,
-              height: height,
-              color: const Color(0xffE8EAEF),
-            )
+                    width: width,
+                    height: height,
+                    color: const Color(0xffE8EAEF),
+                  )
                 : SizedBox(
-              width: width,
-              height: height,
-            ));
+                    width: width,
+                    height: height,
+                  ));
       },
       errorBuilder:
           (BuildContext context, Object error, StackTrace? stackTrace) {
@@ -146,5 +157,3 @@ class XXImage extends StatelessWidget {
     );
   }
 }
-
-
