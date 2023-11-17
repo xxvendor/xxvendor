@@ -14,31 +14,29 @@ class XXImage extends StatelessWidget {
   final double? width;
   final double? height;
   final double? size;
-  final int? maxWidth;
-  final int? maxHeight;
+  final bool isUseOriginalImage;
   final Widget? placeholderBuilder;
   final Widget? errorBuilder;
 
   const XXImage({
     Key? key,
-    this.imagePath="",
+    this.imagePath = "",
     this.fit = BoxFit.contain,
     this.width,
     this.height,
-    this.maxWidth,
-    this.maxHeight,
     this.size,
     this.placeholderBuilder,
     this.errorBuilder,
     this.color,
     this.uint8List,
+    this.isUseOriginalImage = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget widget;
     if (uint8List != null) {
-      widget = thumbDataImageWidget();
+      widget = uint8ListDataImageWidget();
     } else {
       if (imagePath.startsWith("https://") || imagePath.startsWith("http://")) {
         //networkImage
@@ -72,7 +70,16 @@ class XXImage extends StatelessWidget {
             },
           )
         : octoImageWidget(CachedNetworkImageProvider(imagePath,
-            maxHeight: maxHeight, maxWidth: maxWidth));
+            maxHeight: isUseOriginalImage
+                ? null
+                : ((size == 0 || size == null)
+                    ? ((height ?? 0) * 3).toInt()
+                    : ((size ?? 0) * 3).toInt()),
+            maxWidth: isUseOriginalImage
+                ? null
+                : ((size == 0 || size == null)
+                    ? ((width ?? 0) * 3).toInt()
+                    : ((size ?? 0) * 3).toInt())));
   }
 
   Widget fileImageWidget({required bool enableSvg}) {
@@ -120,7 +127,7 @@ class XXImage extends StatelessWidget {
         : octoImageWidget(AssetImage(imagePath));
   }
 
-  Widget thumbDataImageWidget() {
+  Widget uint8ListDataImageWidget() {
     return octoImageWidget(MemoryImage(uint8List!));
   }
 
