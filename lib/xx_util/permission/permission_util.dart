@@ -32,7 +32,7 @@ class XXPermissionUtil {
 
   static Future<bool> requestCameraPermissions() async {
     final PermissionState ps = await PhotoManager.requestPermissionExtend();
-    return  ps.isAuth;
+    return  ps.isAuth||ps.hasAccess;
   }
 
 
